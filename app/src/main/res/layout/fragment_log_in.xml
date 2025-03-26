@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_auth_block"
+    >
+
+    <TextView
+        android:id="@+id/tv_hello_there"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="30sp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="48dp"
+        android:text="С возвращением!"
+        android:textColor="@color/foreground"
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/tv_to_log_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_hello_there"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Есть аккаунт?"
+        app:layout_constraintEnd_toStartOf="@id/tv_btn_to_log_up"
+        android:textColor="@color/foreground"
+        android:gravity="center"
+        app:layout_constraintHorizontal_chainStyle="packed"
+
+        />
+    <TextView
+        android:id="@+id/tv_btn_to_log_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_hello_there"
+        app:layout_constraintStart_toEndOf="@id/tv_to_log_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"
+
+        android:layout_marginTop="16dp"
+        android:text="Войти"
+        android:textColor="@color/primary_green"
+        android:gravity="center"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

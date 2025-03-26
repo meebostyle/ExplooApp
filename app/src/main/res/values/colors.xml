@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="total_black">#000000</color>
+    <color name="primary_green">#509881</color>
+    <color name="hover_green">#287B60</color>
+    <color name="primary_darkblue">#214652</color>
+    <color name="invalid_color">#B80000</color>
+    <color name="foreground">#313131</color>
+    <color name="background">#F5F6F4</color>
+    <color name="input_grey">#EBEBEB</color>
+    <color name="cards_color">#FFFFFF</color>
+    <color name="secondary_text">#C6C6C6</color>
+</resources>
