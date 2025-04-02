@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/navigation_log_in"
+    >
+    <fragment
+        android:id="@+id/navigation_sign_up_page1"
+        android:name="com.example.explooapp.ru.ui.signUp.SignUpPage1Fragment"
+        tools:layout="@layout/fragment_sign_up_page1"
+        />
+    <fragment
+        android:id="@+id/navigation_log_in"
+        android:name="com.example.explooapp.ru.ui.logIn.LogInFragment"
+        tools:layout="@layout/fragment_log_in"
+        />
+    <fragment
+        android:id="@+id/navigation_log_in_code"
+        android:name="com.example.explooapp.ru.ui.logIn.LogInCodeFragment"
+        tools:layout="@layout/fragment_log_in_code"
+        />
+    <fragment
+        android:id="@+id/navigation_log_in_password"
+        android:name="com.example.explooapp.ru.ui.logIn.LogInPasswordFragment"
+        tools:layout="@layout/fragment_log_in_password"
+        />
+    <fragment
+        android:id="@+id/navigation_sign_up_page2"
+        android:name="com.example.explooapp.ru.ui.signUp.SignUpPage2Fragment"
+        tools:layout="@layout/fragment_sign_up_page2"
+        />
+
+    <fragment
+        android:id="@+id/navigation_sign_up_code"
+        android:name="com.example.explooapp.ru.ui.signUp.SignUpCodeFragment"
+        tools:layout="@layout/fragment_sign_up_code"
+        />
+    <fragment
+        android:id="@+id/navigation_sign_up_account_type"
+        android:name="com.example.explooapp.ru.ui.signUp.SignUpAccountTypeFragment"
+        tools:layout="@layout/fragment_sign_up_account_type"
+        />
+
+    <fragment
+        android:id="@+id/navigation_log_in_forgot_password_code"
+        android:name="com.example.explooapp.ru.ui.logIn.LogInForgotPasswordCodeFragment"
+        tools:layout="@layout/fragment_log_in_forgot_password_code"
+        />
+
+    <fragment
+        android:id="@+id/navigation_log_in_new_password"
+        android:name="com.example.explooapp.ru.ui.logIn.LogInNewPasswordFragment"
+        tools:layout="@layout/fragment_log_in_new_password"
+
+        />
+
+
+</navigation>

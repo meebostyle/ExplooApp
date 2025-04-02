@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/background"
-    tools:context=".MainActivity">
+    android:background="@color/background"
+    tools:context=".ru.ui.MainActivity">
 
     <TextView
         app:layout_constraintStart_toStartOf="parent"
@@ -17,18 +17,25 @@
         android:textColor="@color/foreground"
         android:gravity="center"
         android:text="exploo"
+        android:fontFamily="@font/itim"
+        android:textSize="20sp"
 
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="56dp"
         />
 
     <fragment
+        android:id="@+id/nav_host_holder"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_marginTop="128dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_log_in"
+        tools:layout="@layout/fragment_sign_up_page1"
+        app:navGraph="@navigation/main_nav_graph"
+        app:defaultNavHost="true"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ExplooApp</string>
+    <string name="sign_up_tv"><u>Создать</u></string>
+    <string name="log_in_tv"><u>Войти</u></string>
+    <string name="send_code_again"><u>Отправить код повторно через 30 сек</u></string>
+    <string name="forgot_password"><u>Забыли пароль?</u></string>
 </resources>
