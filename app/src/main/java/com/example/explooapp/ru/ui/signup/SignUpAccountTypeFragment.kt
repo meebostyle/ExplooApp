@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signUp
+package com.example.explooapp.ru.ui.signup
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -10,26 +10,25 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpAccountTypeBinding
 
-class SignUpAccountTypeFragment:Fragment() {
+class SignUpAccountTypeFragment : Fragment() {
 
-    private var _binding:FragmentSignUpAccountTypeBinding? = null
+    private var _binding: FragmentSignUpAccountTypeBinding? = null
     private val binding get() = _binding!!
 
     private var isTutor = false
     private var isStudent = false
 
 
-    private val tvText = "Регистрируясь, я понимаю принимаю Условия пользования и Политику конфиденциальности."
+    private val tvText =
+        "Регистрируясь, я понимаю принимаю Условия пользования и Политику конфиденциальности."
     private val spannable = SpannableString(tvText)
 
 
@@ -42,7 +41,6 @@ class SignUpAccountTypeFragment:Fragment() {
         val root = binding.root
         return root
     }
-
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -103,16 +101,36 @@ class SignUpAccountTypeFragment:Fragment() {
 
 
 
-        with(binding){
+        with(binding) {
             tvPolicy.text = spannable
             tvPolicy.movementMethod = LinkMovementMethod.getInstance()
             btnChoiceTutor.setOnClickListener {
-                btnChoiceTutor.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.primary_green))
-                btnChoiceTutor.setTextColor(ContextCompat.getColor(view.context ,R.color.cards_color))
+                btnChoiceTutor.setBackgroundColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.primary_green
+                    )
+                )
+                btnChoiceTutor.setTextColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.cards_color
+                    )
+                )
                 isTutor = true
-                if (isStudent){
-                    btnChoiceStudent.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.input_grey))
-                    btnChoiceStudent.setTextColor(ContextCompat.getColor(view.context ,R.color.foreground))
+                if (isStudent) {
+                    btnChoiceStudent.setBackgroundColor(
+                        ContextCompat.getColor(
+                            view.context,
+                            R.color.input_grey
+                        )
+                    )
+                    btnChoiceStudent.setTextColor(
+                        ContextCompat.getColor(
+                            view.context,
+                            R.color.foreground
+                        )
+                    )
                     isStudent = false
                 }
                 btnChoiceStudent.isClickable = true
@@ -120,12 +138,32 @@ class SignUpAccountTypeFragment:Fragment() {
                 Log.i("flags", "Репетитор:${isTutor}, Ученик: ${isStudent}")
             }
             btnChoiceStudent.setOnClickListener {
-                btnChoiceStudent.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.primary_green))
-                btnChoiceStudent.setTextColor(ContextCompat.getColor(view.context ,R.color.cards_color))
+                btnChoiceStudent.setBackgroundColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.primary_green
+                    )
+                )
+                btnChoiceStudent.setTextColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.cards_color
+                    )
+                )
                 isStudent = true
-                if (isTutor){
-                    btnChoiceTutor.setBackgroundColor(ContextCompat.getColor(view.context ,R.color.input_grey))
-                    btnChoiceTutor.setTextColor(ContextCompat.getColor(view.context ,R.color.foreground))
+                if (isTutor) {
+                    btnChoiceTutor.setBackgroundColor(
+                        ContextCompat.getColor(
+                            view.context,
+                            R.color.input_grey
+                        )
+                    )
+                    btnChoiceTutor.setTextColor(
+                        ContextCompat.getColor(
+                            view.context,
+                            R.color.foreground
+                        )
+                    )
                     isTutor = false
                 }
                 btnChoiceTutor.isClickable = true
@@ -139,7 +177,6 @@ class SignUpAccountTypeFragment:Fragment() {
 
 
         }
-
 
 
     }

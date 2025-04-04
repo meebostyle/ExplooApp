@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInForgotPasswordCodeBinding
 
-class LogInForgotPasswordCodeFragment:Fragment() {
+class LogInForgotPasswordCodeFragment : Fragment() {
 
     private var _binding: FragmentLogInForgotPasswordCodeBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +28,7 @@ class LogInForgotPasswordCodeFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
         val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.fragment_enter)
+            .setEnterAnim(R.anim.anim_fragment_enter)
             .setExitAnim(R.anim.fragment_exit)
             .setPopEnterAnim(R.anim.fragment_pop_enter)
             .setPopExitAnim(R.anim.fragment_pop_exit)

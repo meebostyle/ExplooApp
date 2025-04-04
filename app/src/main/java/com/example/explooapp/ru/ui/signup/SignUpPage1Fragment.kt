@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signUp
+package com.example.explooapp.ru.ui.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,13 +15,11 @@ import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpPage1Binding
 
 
-class SignUpPage1Fragment: Fragment() {
+class SignUpPage1Fragment : Fragment() {
 
     private var _binding: FragmentSignUpPage1Binding? = null
-    private  val binding get() = _binding!!
+    private val binding get() = _binding!!
     private lateinit var navController: NavController
-
-
 
 
     override fun onCreateView(
@@ -35,21 +33,22 @@ class SignUpPage1Fragment: Fragment() {
     }
 
     private fun validate(): Boolean {
-        var result:Boolean
-        with(binding){
-            result = (etSurnameSignUp.text.toString().isNotEmpty() &&etNameSignUp.text.toString().isNotEmpty())
+        var result: Boolean
+        with(binding) {
+            result = (etSurnameSignUp.text.toString().isNotEmpty() && etNameSignUp.text.toString()
+                .isNotEmpty())
         }
-        if (!result){
+        if (!result) {
             hintContainer()
         }
         return result
     }
 
     private fun hintContainer() {
-        with(binding){
-            if (etSurnameSignUp.text.toString().isEmpty()){
+        with(binding) {
+            if (etSurnameSignUp.text.toString().isEmpty()) {
                 etSurnameSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
-            } else{
+            } else {
                 etNameSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
             }
 
@@ -62,17 +61,17 @@ class SignUpPage1Fragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
         val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.fragment_enter)
+            .setEnterAnim(R.anim.anim_fragment_enter)
             .setExitAnim(R.anim.fragment_exit)
             .setPopEnterAnim(R.anim.fragment_pop_enter)
             .setPopExitAnim(R.anim.fragment_pop_exit)
-        with(binding){
+        with(binding) {
             etSurnameSignUp.addTextChangedListener {
                 etSurnameSignUp.setBackgroundResource(R.drawable.background_et_container)
             }
-                etNameSignUp.addTextChangedListener {
-                    etNameSignUp.setBackgroundResource(R.drawable.background_et_container)
-                }
+            etNameSignUp.addTextChangedListener {
+                etNameSignUp.setBackgroundResource(R.drawable.background_et_container)
+            }
 
             binding.tvBtnToLogIn.apply {
                 setOnTouchListener { v, event ->
@@ -119,15 +118,15 @@ class SignUpPage1Fragment: Fragment() {
                 }
 
 
-
-
             }
             btnSignUp.setOnClickListener {
 
-                if (validate()){
-                    navController.navigate(R.id.navigation_sign_up_page2,
+                if (validate()) {
+                    navController.navigate(
+                        R.id.navigation_sign_up_page2,
                         null,
-                        animBuilder.build())
+                        animBuilder.build()
+                    )
                 }
 
             }
@@ -135,11 +134,13 @@ class SignUpPage1Fragment: Fragment() {
         }
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-    companion object{
+
+    companion object {
         @JvmStatic
         fun newInstance() = SignUpPage1Fragment()
     }

@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_auth_block">
 
     <TextView
         android:id="@+id/tv_hello_there"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_waiting_code"
-        android:textSize="30sp"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="@dimen/padding16"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/shantell_sans_700"
+        android:gravity="center"
         android:text="Введите код"
         android:textColor="@color/foreground"
-        android:gravity="center"
-        />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_waiting_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_waiting_code"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_hello_there"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="@dimen/padding16"
+        android:fontFamily="@font/montserrat_500"
+        android:gravity="center"
+        android:text="Пожалуйста, введите код подтверждения. SMS с кодом будет отправлено в течение 5 минут. Спасибо за ваше терпение!"
+        android:textColor="@color/foreground"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/pv_code"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:fontFamily="@font/montserrat_500"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:text="Пожалуйста, введите код подтверждения. SMS с кодом будет отправлено в течение 5 минут. Спасибо за ваше терпение!"
 
-        android:textColor="@color/foreground"
-        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_hello_there"
 
         />
 
@@ -45,30 +44,28 @@
         android:id="@+id/pv_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_waiting_code"
-        app:layout_constraintBottom_toTopOf="@id/tv_invalid_code"
         android:layout_marginTop="24dp"
-        app:lineColor="#00000000"
-        app:lineWidth="0dp"
+        android:cursorVisible="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:fontFamily="@font/montserrat_600"
-        android:textSize="24sp"
-        android:textColor="@color/primary_green"
-        app:itemHeight="68dp"
-        app:itemWidth="52dp"
-        app:itemSpacing="4dp"
         android:inputType="number"
         android:itemBackground="@drawable/item_background_code_input"
-
-        android:focusableInTouchMode="true"
-        android:focusable="true"
-        android:cursorVisible="false"
-        android:textIsSelectable="false"
         android:longClickable="false"
         android:selectAllOnFocus="false"
-        
+        android:textColor="@color/primary_green"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        app:itemHeight="68dp"
+        app:itemSpacing="4dp"
+        app:itemWidth="52dp"
 
+        app:layout_constraintBottom_toTopOf="@id/tv_invalid_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_waiting_code"
+        app:lineColor="#00000000"
+        app:lineWidth="0dp"
 
 
         />
@@ -77,47 +74,49 @@
         android:id="@+id/tv_invalid_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pv_code"
-        app:layout_constraintBottom_toTopOf="@id/tv_try_again"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_600"
         android:text="*неверный код"
         android:textColor="@color/invalid_color"
         android:textSize="11sp"
-        android:fontFamily="@font/montserrat_600"
-        android:layout_marginTop="8dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/tv_try_again"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pv_code"
 
         />
+
     <TextView
         android:id="@+id/tv_try_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_invalid_code"
-        app:layout_constraintBottom_toTopOf="@id/btn_send_code_again"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_600"
         android:text="Попробуйте еще раз"
         android:textColor="@color/invalid_color"
         android:textSize="11sp"
-        android:fontFamily="@font/montserrat_600"
-        android:layout_marginTop="8dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/btn_send_code_again"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_invalid_code"
 
         />
+
     <TextView
         android:id="@+id/btn_send_code_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_try_again"
-        app:layout_constraintBottom_toTopOf="@id/btn_log_in"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_600"
         android:text="@string/send_code_again"
         android:textColor="@color/primary_green"
         android:textSize="11sp"
-        android:fontFamily="@font/montserrat_600"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_log_in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_try_again"
 
         />
 
@@ -126,33 +125,30 @@
         android:id="@+id/btn_log_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_send_code_again"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/iv_ic_main"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/primary_green"
-
         android:fontFamily="@font/montserrat_600"
-        android:textColor="@color/cards_color"
         android:text="Подтвердить"
+        android:textColor="@color/cards_color"
         android:textSize="12sp"
-        />
 
+        app:layout_constraintBottom_toTopOf="@id/iv_ic_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_send_code_again" />
 
 
     <ImageView
         android:id="@+id/iv_ic_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_log_in"
-        android:src="@drawable/ic_main_illustration_1"
         android:layout_marginHorizontal="48dp"
         android:layout_marginBottom="-18dp"
-        />
+        android:src="@drawable/ic_main_illustration_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_log_in" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

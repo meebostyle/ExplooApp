@@ -1,18 +1,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Состояние focused (выбрано) -->
 
-    <item android:state_focused="true"
-            >
+    <item android:state_focused="true">
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/input_grey"/>
-                    <corners android:radius="40dp"/>
+                    <solid android:color="@color/input_grey" />
+                    <corners android:radius="40dp" />
                 </shape>
             </item>
-            <item android:left="20dp" android:top="60dp" android:right="20dp" android:bottom="20dp">
+            <item android:bottom="20dp" android:left="20dp" android:right="20dp" android:top="60dp">
                 <shape android:shape="oval">
-                    <solid android:color="@android:color/transparent"/>
+                    <solid android:color="@android:color/transparent" />
                 </shape>
             </item>
         </layer-list>
@@ -23,15 +22,15 @@
             <!-- Фон с обводкой -->
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/input_grey"/>
-                    <stroke android:width="2dp" android:color="@color/primary_green"/> <!-- Цвет обводки -->
-                    <corners android:radius="40dp"/>
+                    <solid android:color="@color/input_grey" />
+                    <stroke android:width="2dp" android:color="@color/primary_green" /> <!-- Цвет обводки -->
+                    <corners android:radius="40dp" />
                 </shape>
             </item>
             <!-- Внутренний отступ -->
-            <item android:left="20dp" android:top="60dp" android:right="20dp" android:bottom="20dp">
+            <item android:bottom="20dp" android:left="20dp" android:right="20dp" android:top="60dp">
                 <shape android:shape="oval">
-                    <solid android:color="@android:color/transparent"/>
+                    <solid android:color="@android:color/transparent" />
                 </shape>
             </item>
         </layer-list>
@@ -40,13 +39,13 @@
         <layer-list>
             <item>
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/input_grey"/>
-                    <corners android:radius="40dp"/>
+                    <solid android:color="@color/input_grey" />
+                    <corners android:radius="40dp" />
                 </shape>
             </item>
-            <item android:left="20dp" android:top="60dp" android:right="20dp" android:bottom="20dp">
+            <item android:bottom="20dp" android:left="20dp" android:right="20dp" android:top="60dp">
                 <shape android:shape="oval">
-                    <solid android:color="@android:color/transparent"/>
+                    <solid android:color="@android:color/transparent" />
                 </shape>
             </item>
         </layer-list>

@@ -15,14 +15,21 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInBinding
-import com.example.explooapp.ru.ui.signUp.SignUpPage1Fragment
+import com.example.explooapp.ru.data.TestRepository
+import com.example.explooapp.ru.data.model.TestResponse
+import com.example.explooapp.ru.ui.signup.SignUpPage1Fragment
 import com.vicmikhailau.maskededittext.addMaskedTextChangedListener
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class LogInFragment:Fragment() {
+class LogInFragment : Fragment() {
 
-    private var _binding:FragmentLogInBinding? = null
+    private var _binding: FragmentLogInBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
+
+    private val testRepository = TestRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,14 +46,15 @@ class LogInFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
         val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.fragment_enter)
+            .setEnterAnim(R.anim.anim_fragment_enter)
             .setExitAnim(R.anim.fragment_exit)
             .setPopEnterAnim(R.anim.fragment_pop_enter)
             .setPopExitAnim(R.anim.fragment_pop_exit)
+
         binding.tvBtnToSignUp.apply {
             setOnTouchListener { v, event ->
-                when(event.action){
-                    MotionEvent.ACTION_DOWN ->{
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
                         scaleX = 0.9f
                         scaleY = 0.9f
                         true
@@ -59,27 +67,34 @@ class LogInFragment:Fragment() {
                             .setDuration(50)
                             .setInterpolator(OvershootInterpolator())
                             .withEndAction {
-                                navController.navigate(R.id.navigation_sign_up_page1, null, animBuilder.build())
+                                navController.navigate(
+                                    R.id.navigation_sign_up_page1,
+                                    null,
+                                    animBuilder.build()
+                                )
                             }
 
                         true
                     }
+
                     else -> false
                 }
             }
         }
+
         val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
             if (dstart == 0 && source.isNotEmpty() && source[0] == '8') {
                 return@InputFilter ""
             }
             null
         }
-        binding.etPhoneLogIn.setOnFocusChangeListener { _, hasFocus ->
 
+        binding.etPhoneLogIn.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && binding.etPhoneLogIn.text.isNullOrEmpty()) {
                 binding.etPhoneLogIn.setText("+7 (")
             }
         }
+
         binding.etPhoneLogIn.addMaskedTextChangedListener {
             binding.run { etPhoneLogIn.setBackgroundResource(R.drawable.background_et_container) }
         }
@@ -87,20 +102,34 @@ class LogInFragment:Fragment() {
         binding.etPhoneLogIn.filters = arrayOf(inputFilter)
         binding.btnLogIn.setOnClickListener {
 
-            if (validatePhoneNumber()){
-                navController.navigate(R.id.navigation_log_in_code,
-                    null,
-                    animBuilder.build())
+            testRepository.getTickets(0, 10, "101")
+                .enqueue(
+                    object : Callback<TestResponse> {
+                        override fun onResponse(
+                            p0: Call<TestResponse>,
+                            p1: Response<TestResponse>
+                        ) {
+                            Log.e("TAG", "Success ${p1.body()}")
+                        }
 
-            } else{
-                binding.etPhoneLogIn.setBackgroundResource(R.drawable.background_et_container_invalide_input)
+                        override fun onFailure(p0: Call<TestResponse>, p1: Throwable) {
+                            Log.e("TAG", "Error $p1")
+                        }
 
-            }
+                    }
+                )
 
-
-
+//            if (validatePhoneNumber()) {
+//                navController.navigate(
+//                    R.id.navigation_log_in_code,
+//                    null,
+//                    animBuilder.build()
+//                )
+//            } else {
+//                binding.etPhoneLogIn.setBackgroundResource(R.drawable.background_et_container_invalide_input)
+//
+//            }
         }
-
     }
 
     private fun validatePhoneNumber(): Boolean {
@@ -112,7 +141,7 @@ class LogInFragment:Fragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         @JvmStatic
         fun newInstance() = SignUpPage1Fragment()
     }

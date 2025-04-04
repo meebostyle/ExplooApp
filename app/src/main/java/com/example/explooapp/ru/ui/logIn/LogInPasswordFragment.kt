@@ -2,21 +2,18 @@ package com.example.explooapp.ru.ui.logIn
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInPasswordBinding
 
-class LogInPasswordFragment: Fragment() {
+class LogInPasswordFragment : Fragment() {
 
     private var _binding: FragmentLogInPasswordBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +33,7 @@ class LogInPasswordFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.fragment_enter)
+            .setEnterAnim(R.anim.anim_fragment_enter)
             .setExitAnim(R.anim.fragment_exit)
             .setPopEnterAnim(R.anim.fragment_pop_enter)
             .setPopExitAnim(R.anim.fragment_pop_exit)
@@ -46,12 +43,13 @@ class LogInPasswordFragment: Fragment() {
 
         binding.tvBtnForgotPassword.apply {
             setOnTouchListener { v, event ->
-                when(event.action){
+                when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
                         v.scaleX = 0.9f
                         v.scaleY = 0.9f
                         true
                     }
+
                     MotionEvent.ACTION_UP -> {
                         animate()
                             .scaleX(1f)
@@ -59,18 +57,22 @@ class LogInPasswordFragment: Fragment() {
                             .setInterpolator(OvershootInterpolator())
                             .setDuration(50)
                             .withEndAction {
-                                navController.navigate(R.id.navigation_log_in_forgot_password_code, null, animBuilder.build())
+                                navController.navigate(
+                                    R.id.navigation_log_in_forgot_password_code,
+                                    null,
+                                    animBuilder.build()
+                                )
                             }
 
                         true
                     }
+
                     else -> false
                 }
             }
 
         }
     }
-
 
 
     override fun onDestroy() {
