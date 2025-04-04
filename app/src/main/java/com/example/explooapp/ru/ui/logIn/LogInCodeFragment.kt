@@ -27,6 +27,16 @@ class LogInCodeFragment: Fragment() {
         return root
     }
 
+
+
+
+
+
+
+
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
@@ -41,18 +51,3 @@ class LogInCodeFragment: Fragment() {
                 null,
                 animBuilder.build())
         }
-
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    companion object{
-        @JvmStatic
-        fun newInstance() = LogInFragment()
-    }
-
-}
