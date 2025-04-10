@@ -16,7 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInBinding
 import com.example.explooapp.ru.data.TestRepository
-import com.example.explooapp.ru.data.model.TestResponse
+import com.example.explooapp.ru.data.model.ApiResponse
 import com.example.explooapp.ru.ui.signup.SignUpPage1Fragment
 import com.vicmikhailau.maskededittext.addMaskedTextChangedListener
 import retrofit2.Call
@@ -104,15 +104,15 @@ class LogInFragment : Fragment() {
 
             testRepository.getTickets(0, 10, "101")
                 .enqueue(
-                    object : Callback<TestResponse> {
+                    object : Callback<ApiResponse> {
                         override fun onResponse(
-                            p0: Call<TestResponse>,
-                            p1: Response<TestResponse>
+                            p0: Call<ApiResponse>,
+                            p1: Response<ApiResponse>
                         ) {
                             Log.e("TAG", "Success ${p1.body()}")
                         }
 
-                        override fun onFailure(p0: Call<TestResponse>, p1: Throwable) {
+                        override fun onFailure(p0: Call<ApiResponse>, p1: Throwable) {
                             Log.e("TAG", "Error $p1")
                         }
 
