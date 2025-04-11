@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpAccountTypeBinding
@@ -43,7 +42,7 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
 
         val privacySpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                (widget as? TextView)?.text = widget.text
+                //  (widget as? TextView)?.text = widget.text
                 Log.i("span", "Условия пользования")
                 // Ваш код обработки клика
             }
@@ -57,7 +56,7 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
 
         val termsSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                (widget as? TextView)?.text = widget.text
+                //     (widget as? TextView)?.text = widget.text
                 Log.i("span", "Политику конфиденциальности.")
                 // Ваш код обработки клика
             }
@@ -105,7 +104,7 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
                 )
                 btnChoiceTutor.setTextColor(
                     ContextCompat.getColor(
-                        requireView().context,
+                        requireContext(),
                         R.color.cards_color
                     )
                 )
@@ -113,13 +112,13 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
                 if (isStudent) {
                     btnChoiceStudent.setBackgroundColor(
                         ContextCompat.getColor(
-                            requireView().context,
+                            requireContext(),
                             R.color.input_grey
                         )
                     )
                     btnChoiceStudent.setTextColor(
                         ContextCompat.getColor(
-                            requireView().context,
+                            requireContext(),
                             R.color.foreground
                         )
                     )
@@ -132,7 +131,7 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
             btnChoiceStudent.setOnClickListener {
                 btnChoiceStudent.setBackgroundColor(
                     ContextCompat.getColor(
-                        requireView().context,
+                        requireContext(),
                         R.color.primary_green
                     )
                 )

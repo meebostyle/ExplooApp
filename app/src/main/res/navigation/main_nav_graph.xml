@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/navigation_log_in">
+    app:startDestination="@id/testFragment">
     <fragment
         android:id="@+id/navigation_sign_up_page1"
         android:name="com.example.explooapp.ru.ui.signup.SignUpPage1Fragment"
@@ -45,6 +45,10 @@
         tools:layout="@layout/fragment_log_in_new_password"
 
         />
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.example.explooapp.ru.ui.test.TestFragment"
+        android:label="TestFragment" />
 
 
 </navigation>

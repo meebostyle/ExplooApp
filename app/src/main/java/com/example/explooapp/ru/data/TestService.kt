@@ -1,6 +1,5 @@
 package com.example.explooapp.ru.data
 
-import com.example.explooapp.ru.data.model.HomeWorkResponse
 import com.example.explooapp.ru.data.model.TestResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -16,15 +15,6 @@ interface TestService {
         @Query("limit") limit: Int,
         @Query("objectId") objectId: String
     ): Call<TestResponse>
-
-
-    @Headers("Authorization: $TEST_TOKEN")
-    @GET("tickets")
-    fun getTitle(
-        @Query("page") page: Int,
-        @Query("limit") limit: Int,
-        @Query("objectId") objectId: String
-    ): Call<HomeWorkResponse>
 
     companion object {
         const val TEST_TOKEN =

@@ -1,25 +1,20 @@
 package com.example.explooapp.ru.ui.logIn
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.text.InputFilter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInBinding
 import com.example.explooapp.ru.data.TestRepository
-import com.example.explooapp.ru.data.model.HomeWorkResponse
 import com.example.explooapp.ru.data.model.TestResponse
 import com.example.explooapp.ru.ui.base.BaseFragment
-import com.example.explooapp.ru.ui.signup.SignUpPage1Fragment
 import com.vicmikhailau.maskededittext.addMaskedTextChangedListener
 import retrofit2.Call
 import retrofit2.Callback
@@ -119,44 +114,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>() {
 
                     }
                 )
-            testRepository.getTitle(0, 10, "101")
-                .enqueue(
-                    object : Callback<HomeWorkResponse> {
-                        override fun onResponse(
-                            p0: Call<HomeWorkResponse>,
-                            p1: Response<HomeWorkResponse>
-                        ) {
-                            Log.i("TAG", "Success")
-                            p1.body()?.page?.content?.forEachIndexed() { value, it ->
-                                Log.i(
-                                    "TAG",
-                                    "${value + 1}) title = ${it.title}; financialImpact = ${it.financialImpact}"
-                                )
-                            }
-
-                        }
-
-                        override fun onFailure(p0: Call<HomeWorkResponse>, p1: Throwable) {
-                            Log.i("TAG", "Error $p1")
-                        }
-
-                    }
-                )
-
-
-//            if (validatePhoneNumber()) {
-//                navController.navigate(
-//                    R.id.navigation_log_in_code,
-//                    null,
-//                    animBuilder.build()
-//                )
-//            } else {
-//                binding.etPhoneLogIn.setBackgroundResource(R.drawable.background_et_container_invalide_input)
-//
-//            }
         }
-
     }
-
-
 }

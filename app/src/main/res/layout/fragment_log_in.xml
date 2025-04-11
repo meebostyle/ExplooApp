@@ -34,11 +34,9 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/et_phone_log_in"
         app:layout_constraintEnd_toStartOf="@id/tv_btn_to_sign_up"
-
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_hello_there"
-
         />
 
     <TextView
