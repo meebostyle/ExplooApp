@@ -1,37 +1,28 @@
 package com.example.explooapp.ru.ui.logIn
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInPasswordBinding
+import com.example.explooapp.ru.ui.base.BaseFragment
 
-class LogInPasswordFragment : Fragment() {
+class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {
 
-    private var _binding: FragmentLogInPasswordBinding? = null
-    private val binding get() = _binding!!
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLogInPasswordBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        container: ViewGroup?
+    ): FragmentLogInPasswordBinding {
+        return FragmentLogInPasswordBinding.inflate(inflater, container, false)
     }
-
     @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun configureView() {
+        super.configureView()
         val animBuilder = NavOptions.Builder()
             .setEnterAnim(R.anim.anim_fragment_enter)
             .setExitAnim(R.anim.fragment_exit)
@@ -72,12 +63,9 @@ class LogInPasswordFragment : Fragment() {
             }
 
         }
+
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
 }

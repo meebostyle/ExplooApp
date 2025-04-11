@@ -1,23 +1,21 @@
 package com.example.explooapp.ru.ui.logIn
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.explooapp.databinding.FragmentLogInNewPasswordBinding
+import com.example.explooapp.ru.ui.base.BaseFragment
 
-class LogInNewPasswordFragment : Fragment() {
+class LogInNewPasswordFragment : BaseFragment<FragmentLogInNewPasswordBinding>() {
 
-    private var _binding: FragmentLogInNewPasswordBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLogInNewPasswordBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentLogInNewPasswordBinding {
+        return FragmentLogInNewPasswordBinding.inflate(inflater, container, false)
     }
+
+    override fun configureView() {
+        super.configureView()
+    }
+
 }

@@ -2,7 +2,6 @@ package com.example.explooapp.ru.ui.signup
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -14,14 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpAccountTypeBinding
+import com.example.explooapp.ru.ui.base.BaseFragment
 
-class SignUpAccountTypeFragment : Fragment() {
+class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>() {
 
-    private var _binding: FragmentSignUpAccountTypeBinding? = null
-    private val binding get() = _binding!!
+
 
     private var isTutor = false
     private var isStudent = false
@@ -29,29 +27,23 @@ class SignUpAccountTypeFragment : Fragment() {
 
     private val tvText =
         "Регистрируясь, я понимаю принимаю Условия пользования и Политику конфиденциальности."
-    private val spannable = SpannableString(tvText)
 
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSignUpAccountTypeBinding.inflate(inflater, container, false)
-        val root = binding.root
-        return root
+        container: ViewGroup?
+    ): FragmentSignUpAccountTypeBinding {
+        return FragmentSignUpAccountTypeBinding.inflate(inflater, container, false)
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun configureView() {
+        super.configureView()
         val spannable = SpannableString(tvText)
 
         val privacySpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                (widget as? TextView)?.text = (widget as? TextView)?.text
+                (widget as? TextView)?.text = widget.text
                 Log.i("span", "Условия пользования")
                 // Ваш код обработки клика
             }
@@ -65,7 +57,7 @@ class SignUpAccountTypeFragment : Fragment() {
 
         val termsSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                (widget as? TextView)?.text = (widget as? TextView)?.text
+                (widget as? TextView)?.text = widget.text
                 Log.i("span", "Политику конфиденциальности.")
                 // Ваш код обработки клика
             }
@@ -107,13 +99,13 @@ class SignUpAccountTypeFragment : Fragment() {
             btnChoiceTutor.setOnClickListener {
                 btnChoiceTutor.setBackgroundColor(
                     ContextCompat.getColor(
-                        view.context,
+                        requireView().context,
                         R.color.primary_green
                     )
                 )
                 btnChoiceTutor.setTextColor(
                     ContextCompat.getColor(
-                        view.context,
+                        requireView().context,
                         R.color.cards_color
                     )
                 )
@@ -121,13 +113,13 @@ class SignUpAccountTypeFragment : Fragment() {
                 if (isStudent) {
                     btnChoiceStudent.setBackgroundColor(
                         ContextCompat.getColor(
-                            view.context,
+                            requireView().context,
                             R.color.input_grey
                         )
                     )
                     btnChoiceStudent.setTextColor(
                         ContextCompat.getColor(
-                            view.context,
+                            requireView().context,
                             R.color.foreground
                         )
                     )
@@ -140,13 +132,13 @@ class SignUpAccountTypeFragment : Fragment() {
             btnChoiceStudent.setOnClickListener {
                 btnChoiceStudent.setBackgroundColor(
                     ContextCompat.getColor(
-                        view.context,
+                        requireView().context,
                         R.color.primary_green
                     )
                 )
                 btnChoiceStudent.setTextColor(
                     ContextCompat.getColor(
-                        view.context,
+                        requireView().context,
                         R.color.cards_color
                     )
                 )
@@ -154,13 +146,13 @@ class SignUpAccountTypeFragment : Fragment() {
                 if (isTutor) {
                     btnChoiceTutor.setBackgroundColor(
                         ContextCompat.getColor(
-                            view.context,
+                            requireView().context,
                             R.color.input_grey
                         )
                     )
                     btnChoiceTutor.setTextColor(
                         ContextCompat.getColor(
-                            view.context,
+                            requireView().context,
                             R.color.foreground
                         )
                     )
@@ -178,11 +170,8 @@ class SignUpAccountTypeFragment : Fragment() {
 
         }
 
-
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+
+
 }

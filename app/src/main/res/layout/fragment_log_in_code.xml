@@ -59,7 +59,6 @@
         app:itemHeight="68dp"
         app:itemSpacing="4dp"
         app:itemWidth="52dp"
-
         app:layout_constraintBottom_toTopOf="@id/tv_invalid_code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

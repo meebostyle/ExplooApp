@@ -1,35 +1,29 @@
 package com.example.explooapp.ru.ui.signup
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpPage1Binding
+import com.example.explooapp.ru.ui.base.BaseFragment
 
 
-class SignUpPage1Fragment : Fragment() {
+class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding> () {
 
-    private var _binding: FragmentSignUpPage1Binding? = null
-    private val binding get() = _binding!!
+
     private lateinit var navController: NavController
 
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSignUpPage1Binding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        container: ViewGroup?
+    ): FragmentSignUpPage1Binding {
+        return FragmentSignUpPage1Binding.inflate(inflater, container, false)
     }
 
     private fun validate(): Boolean {
@@ -56,9 +50,8 @@ class SignUpPage1Fragment : Fragment() {
 
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun configureView() {
+        super.configureView()
         navController = findNavController()
         val animBuilder = NavOptions.Builder()
             .setEnterAnim(R.anim.anim_fragment_enter)
@@ -135,15 +128,6 @@ class SignUpPage1Fragment : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SignUpPage1Fragment()
-    }
 
 
 }

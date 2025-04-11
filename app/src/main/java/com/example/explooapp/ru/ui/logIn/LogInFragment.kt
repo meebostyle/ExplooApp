@@ -16,34 +16,35 @@ import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInBinding
 import com.example.explooapp.ru.data.TestRepository
-import com.example.explooapp.ru.data.model.ApiResponse
+import com.example.explooapp.ru.data.model.HomeWorkResponse
+import com.example.explooapp.ru.data.model.TestResponse
+import com.example.explooapp.ru.ui.base.BaseFragment
 import com.example.explooapp.ru.ui.signup.SignUpPage1Fragment
 import com.vicmikhailau.maskededittext.addMaskedTextChangedListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LogInFragment : Fragment() {
+class LogInFragment : BaseFragment<FragmentLogInBinding>() {
 
-    private var _binding: FragmentLogInBinding? = null
-    private val binding get() = _binding!!
+
     private lateinit var navController: NavController
-
     private val testRepository = TestRepository()
 
-    override fun onCreateView(
+    private fun validatePhoneNumber(): Boolean {
+        return (binding.etPhoneLogIn.unMaskedText?.length == 10)
+    }
+
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLogInBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        container: ViewGroup?
+    ): FragmentLogInBinding {
+        return FragmentLogInBinding.inflate(inflater, container, false)
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun configureView() {
+        super.configureView()
         navController = findNavController()
         val animBuilder = NavOptions.Builder()
             .setEnterAnim(R.anim.anim_fragment_enter)
@@ -104,20 +105,44 @@ class LogInFragment : Fragment() {
 
             testRepository.getTickets(0, 10, "101")
                 .enqueue(
-                    object : Callback<ApiResponse> {
+                    object : Callback<TestResponse> {
                         override fun onResponse(
-                            p0: Call<ApiResponse>,
-                            p1: Response<ApiResponse>
+                            p0: Call<TestResponse>,
+                            p1: Response<TestResponse>
                         ) {
                             Log.e("TAG", "Success ${p1.body()}")
                         }
 
-                        override fun onFailure(p0: Call<ApiResponse>, p1: Throwable) {
+                        override fun onFailure(p0: Call<TestResponse>, p1: Throwable) {
                             Log.e("TAG", "Error $p1")
                         }
 
                     }
                 )
+            testRepository.getTitle(0, 10, "101")
+                .enqueue(
+                    object : Callback<HomeWorkResponse> {
+                        override fun onResponse(
+                            p0: Call<HomeWorkResponse>,
+                            p1: Response<HomeWorkResponse>
+                        ) {
+                            Log.i("TAG", "Success")
+                            p1.body()?.page?.content?.forEachIndexed() { value, it ->
+                                Log.i(
+                                    "TAG",
+                                    "${value + 1}) title = ${it.title}; financialImpact = ${it.financialImpact}"
+                                )
+                            }
+
+                        }
+
+                        override fun onFailure(p0: Call<HomeWorkResponse>, p1: Throwable) {
+                            Log.i("TAG", "Error $p1")
+                        }
+
+                    }
+                )
+
 
 //            if (validatePhoneNumber()) {
 //                navController.navigate(
@@ -130,19 +155,8 @@ class LogInFragment : Fragment() {
 //
 //            }
         }
+
     }
 
-    private fun validatePhoneNumber(): Boolean {
-        return (binding.etPhoneLogIn.unMaskedText?.length == 10)
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SignUpPage1Fragment()
-    }
 }

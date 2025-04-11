@@ -1,35 +1,25 @@
 package com.example.explooapp.ru.ui.signup
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpCodeBinding
+import com.example.explooapp.ru.ui.base.BaseFragment
 
-class SignUpCodeFragment : Fragment() {
-
-    private var _binding: FragmentSignUpCodeBinding? = null
-    private val binding get() = _binding!!
+class SignUpCodeFragment : BaseFragment<FragmentSignUpCodeBinding>() {
 
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSignUpCodeBinding.inflate(inflater, container, false)
-
-        return binding.root
+        container: ViewGroup?
+    ): FragmentSignUpCodeBinding {
+        return FragmentSignUpCodeBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
+    override fun configureView() {
+        super.configureView()
         val animBuilder = NavOptions.Builder()
             .setEnterAnim(R.anim.anim_fragment_enter)
             .setExitAnim(R.anim.fragment_exit)
@@ -44,13 +34,4 @@ class SignUpCodeFragment : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SignUpPage1Fragment()
-    }
 }
