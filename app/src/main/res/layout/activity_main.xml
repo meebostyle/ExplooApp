@@ -8,34 +8,20 @@
     android:background="@color/background"
     tools:context=".ru.ui.MainActivity">
 
-    <TextView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/foreground"
-        android:gravity="center"
-        android:text="exploo"
-        android:fontFamily="@font/itim"
-        android:textSize="20sp"
 
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="56dp"
-        />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_holder"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_marginTop="128dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_sign_up_page1"
-        app:navGraph="@navigation/main_nav_graph"
+        android:layout_marginTop="0dp"
         app:defaultNavHost="true"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/main_nav_graph"
+        tools:layout="@layout/fragment_sign_up_page1" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

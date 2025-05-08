@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.ExplooApp" parent="Theme.Material3.DayNight.NoActionBar">
 
@@ -11,6 +11,5 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.ExplooApp" parent="Base.Theme.ExplooApp">
-    </style>
+    <style name="Theme.ExplooApp" parent="Base.Theme.ExplooApp"></style>
 </resources>
