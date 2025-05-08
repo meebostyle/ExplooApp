@@ -1,24 +1,27 @@
-package com.example.explooapp.ru.ui.signup
+package com.example.explooapp.ru.ui.signup.view
 
 import android.annotation.SuppressLint
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.NavOptions
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpPage2Binding
 import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.signup.viewModel.SignUpPage2ViewModel
+import com.example.explooapp.ru.utils.getDefaultNavOptions
+import kotlinx.coroutines.launch
 
 class SignUpPage2Fragment : BaseFragment<FragmentSignUpPage2Binding>() {
 
-    private fun isEmailValid(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
+    private val viewModel: SignUpPage2ViewModel by viewModels()
+    private val navController by lazy { findNavController() }
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,23 +33,23 @@ class SignUpPage2Fragment : BaseFragment<FragmentSignUpPage2Binding>() {
     @SuppressLint("ClickableViewAccessibility")
     override fun configureView() {
         super.configureView()
-        val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.anim_fragment_enter)
-            .setExitAnim(R.anim.fragment_exit)
-            .setPopEnterAnim(R.anim.fragment_pop_enter)
-            .setPopExitAnim(R.anim.fragment_pop_exit)
-
-        val navController = findNavController()
-
-
         with(binding) {
+            etPhoneSignUp.addTextChangedListener {
+                etPhoneSignUp.setBackgroundResource(R.drawable.background_et_container)
+            }
+            etMailSignUp.addTextChangedListener {
+                etMailSignUp.setBackgroundResource(R.drawable.background_et_container)
+            }
             btnSignUp.setOnClickListener {
-                if (isEmailValid(etMailSignUp.text.toString())) {
-                    navController.navigate(R.id.navigation_sign_up_code, null, animBuilder.build())
-                } else {
-                    etMailSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
-                }
+                viewModel.checkInput(etPhoneSignUp.text.toString(), etMailSignUp.text.toString())
 
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isCorrectInput.collect { isCorrect ->
+                            updateFields(isCorrect)
+                        }
+                    }
+                }
             }
             etMailSignUp.addTextChangedListener {
                 etMailSignUp.setBackgroundResource(R.drawable.background_et_container)
@@ -71,7 +74,7 @@ class SignUpPage2Fragment : BaseFragment<FragmentSignUpPage2Binding>() {
                                 navController.navigate(
                                     R.id.navigation_log_in,
                                     null,
-                                    animBuilder.build()
+                                    getDefaultNavOptions()
                                 )
                             }
                         true
@@ -83,7 +86,17 @@ class SignUpPage2Fragment : BaseFragment<FragmentSignUpPage2Binding>() {
         }
     }
 
-
+    private fun updateFields(isCorrect: Set<SignUpPage2ViewModel.CorrectInput>) {
+        if (!isCorrect.contains(SignUpPage2ViewModel.CorrectInput.PHONE)) {
+            binding.etPhoneSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
+        }
+        if (!isCorrect.contains(SignUpPage2ViewModel.CorrectInput.MAIL)) {
+            binding.etMailSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
+        }
+        if (isCorrect.size == 2) {
+            navController.navigate(R.id.navigation_sign_up_code, null, getDefaultNavOptions())
+        }
+    }
 
 
 }

@@ -1,22 +1,28 @@
-package com.example.explooapp.ru.ui.signup
+package com.example.explooapp.ru.ui.signup.view
 
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpPage1Binding
 import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.signup.viewModel.SignUpPage1ViewModel
+import com.example.explooapp.ru.utils.getDefaultNavOptions
+import kotlinx.coroutines.launch
 
 
-class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding> () {
+class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding>() {
 
 
-    private lateinit var navController: NavController
+    private val navController by lazy { findNavController() }
+    private val viewModel: SignUpPage1ViewModel by viewModels()
 
 
     override fun createBinding(
@@ -26,38 +32,9 @@ class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding> () {
         return FragmentSignUpPage1Binding.inflate(inflater, container, false)
     }
 
-    private fun validate(): Boolean {
-        var result: Boolean
-        with(binding) {
-            result = (etSurnameSignUp.text.toString().isNotEmpty() && etNameSignUp.text.toString()
-                .isNotEmpty())
-        }
-        if (!result) {
-            hintContainer()
-        }
-        return result
-    }
-
-    private fun hintContainer() {
-        with(binding) {
-            if (etSurnameSignUp.text.toString().isEmpty()) {
-                etSurnameSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
-            } else {
-                etNameSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
-            }
-
-        }
-
-    }
 
     override fun configureView() {
         super.configureView()
-        navController = findNavController()
-        val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.anim_fragment_enter)
-            .setExitAnim(R.anim.fragment_exit)
-            .setPopEnterAnim(R.anim.fragment_pop_enter)
-            .setPopExitAnim(R.anim.fragment_pop_exit)
         with(binding) {
             etSurnameSignUp.addTextChangedListener {
                 etSurnameSignUp.setBackgroundResource(R.drawable.background_et_container)
@@ -70,7 +47,6 @@ class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding> () {
                 setOnTouchListener { v, event ->
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
-
                             scaleX = 0.9f
                             scaleY = 0.9f
                             v.performClick()
@@ -89,7 +65,7 @@ class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding> () {
                                     navController.navigate(
                                         R.id.navigation_log_in,
                                         null,
-                                        animBuilder.build()
+                                        getDefaultNavOptions()
                                     )
                                 }
                                 .start()
@@ -112,22 +88,41 @@ class SignUpPage1Fragment : BaseFragment<FragmentSignUpPage1Binding> () {
 
 
             }
+
+            etSurnameSignUp.addTextChangedListener {
+                etSurnameSignUp.setBackgroundResource(R.drawable.background_et_container)
+            }
+
+            etNameSignUp.addTextChangedListener {
+                etNameSignUp.setBackgroundResource(R.drawable.background_et_container)
+            }
+
             btnSignUp.setOnClickListener {
-
-                if (validate()) {
-                    navController.navigate(
-                        R.id.navigation_sign_up_page2,
-                        null,
-                        animBuilder.build()
-                    )
+                viewModel.checkInput(etSurnameSignUp.text.toString(), etNameSignUp.text.toString())
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isCorrectInput.collect { isCorrect ->
+                            updateFields(isCorrect)
+                        }
+                    }
                 }
-
             }
 
         }
 
     }
 
+    private fun updateFields(isCorrect: Set<SignUpPage1ViewModel.CorrectInput>) {
+        if (!isCorrect.contains(SignUpPage1ViewModel.CorrectInput.SURNAME)) {
+            binding.etSurnameSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
+        }
+        if (!isCorrect.contains(SignUpPage1ViewModel.CorrectInput.NAME)) {
+            binding.etNameSignUp.setBackgroundResource(R.drawable.background_et_container_invalide_input)
+        }
+        if (isCorrect.size == 2) {
+            navController.navigate(R.id.navigation_sign_up_page2, null, getDefaultNavOptions())
+        }
+    }
 
 
 }

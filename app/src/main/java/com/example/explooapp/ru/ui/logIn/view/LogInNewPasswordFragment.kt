@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.logIn
+package com.example.explooapp.ru.ui.logIn.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

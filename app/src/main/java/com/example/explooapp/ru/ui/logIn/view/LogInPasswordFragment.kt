@@ -1,18 +1,19 @@
-package com.example.explooapp.ru.ui.logIn
+package com.example.explooapp.ru.ui.logIn.view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import androidx.navigation.NavOptions
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInPasswordBinding
 import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.utils.getDefaultNavOptions
 
 class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {
-
+    private val navController: NavController by lazy {findNavController()}
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -20,16 +21,10 @@ class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {
     ): FragmentLogInPasswordBinding {
         return FragmentLogInPasswordBinding.inflate(inflater, container, false)
     }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun configureView() {
         super.configureView()
-        val animBuilder = NavOptions.Builder()
-            .setEnterAnim(R.anim.anim_fragment_enter)
-            .setExitAnim(R.anim.fragment_exit)
-            .setPopEnterAnim(R.anim.fragment_pop_enter)
-            .setPopExitAnim(R.anim.fragment_pop_exit)
-
-        val navController = findNavController()
 
 
         binding.tvBtnForgotPassword.apply {
@@ -51,7 +46,7 @@ class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {
                                 navController.navigate(
                                     R.id.navigation_log_in_forgot_password_code,
                                     null,
-                                    animBuilder.build()
+                                    getDefaultNavOptions()
                                 )
                             }
 
@@ -65,7 +60,6 @@ class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {
         }
 
     }
-
 
 
 }

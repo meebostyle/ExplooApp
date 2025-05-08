@@ -3,45 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/navigation_log_in">
     <fragment
         android:id="@+id/navigation_sign_up_page1"
-        android:name="com.example.explooapp.ru.ui.signup.SignUpPage1Fragment"
+        android:name="com.example.explooapp.ru.ui.signup.view.SignUpPage1Fragment"
         tools:layout="@layout/fragment_sign_up_page1" />
     <fragment
         android:id="@+id/navigation_log_in"
-        android:name="com.example.explooapp.ru.ui.logIn.LogInFragment"
+        android:name="com.example.explooapp.ru.ui.logIn.view.LogInFragment"
         tools:layout="@layout/fragment_log_in" />
     <fragment
         android:id="@+id/navigation_log_in_code"
-        android:name="com.example.explooapp.ru.ui.logIn.LogInCodeFragment"
+        android:name="com.example.explooapp.ru.ui.logIn.view.LogInCodeFragment"
         tools:layout="@layout/fragment_log_in_code" />
     <fragment
         android:id="@+id/navigation_log_in_password"
-        android:name="com.example.explooapp.ru.ui.logIn.LogInPasswordFragment"
+        android:name="com.example.explooapp.ru.ui.logIn.view.LogInPasswordFragment"
         tools:layout="@layout/fragment_log_in_password" />
     <fragment
         android:id="@+id/navigation_sign_up_page2"
-        android:name="com.example.explooapp.ru.ui.signup.SignUpPage2Fragment"
+        android:name="com.example.explooapp.ru.ui.signup.view.SignUpPage2Fragment"
         tools:layout="@layout/fragment_sign_up_page2" />
 
     <fragment
         android:id="@+id/navigation_sign_up_code"
-        android:name="com.example.explooapp.ru.ui.signup.SignUpCodeFragment"
+        android:name="com.example.explooapp.ru.ui.signup.view.SignUpCodeFragment"
         tools:layout="@layout/fragment_sign_up_code" />
     <fragment
         android:id="@+id/navigation_sign_up_account_type"
-        android:name="com.example.explooapp.ru.ui.signup.SignUpAccountTypeFragment"
+        android:name="com.example.explooapp.ru.ui.signup.view.SignUpAccountTypeFragment"
         tools:layout="@layout/fragment_sign_up_account_type" />
 
     <fragment
         android:id="@+id/navigation_log_in_forgot_password_code"
-        android:name="com.example.explooapp.ru.ui.logIn.LogInForgotPasswordCodeFragment"
+        android:name="com.example.explooapp.ru.ui.logIn.view.LogInForgotPasswordCodeFragment"
         tools:layout="@layout/fragment_log_in_forgot_password_code" />
 
     <fragment
         android:id="@+id/navigation_log_in_new_password"
-        android:name="com.example.explooapp.ru.ui.logIn.LogInNewPasswordFragment"
+        android:name="com.example.explooapp.ru.ui.logIn.view.LogInNewPasswordFragment"
         tools:layout="@layout/fragment_log_in_new_password"
 
         />

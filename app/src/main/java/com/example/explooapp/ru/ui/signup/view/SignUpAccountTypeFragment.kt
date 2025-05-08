@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup
+package com.example.explooapp.ru.ui.signup.view
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -12,16 +12,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpAccountTypeBinding
 import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.signup.viewModel.SignUpAccountTypeViewModel
+import kotlinx.coroutines.launch
 
 class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>() {
 
 
-
-    private var isTutor = false
-    private var isStudent = false
+    private val viewModel: SignUpAccountTypeViewModel by viewModels()
 
 
     private val tvText =
@@ -42,9 +46,7 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
 
         val privacySpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                //  (widget as? TextView)?.text = widget.text
                 Log.i("span", "Условия пользования")
-                // Ваш код обработки клика
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -56,9 +58,7 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
 
         val termsSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                //     (widget as? TextView)?.text = widget.text
                 Log.i("span", "Политику конфиденциальности.")
-                // Ваш код обработки клика
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -81,35 +81,66 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
             tvText.indexOf("Политику конфиденциальности.") + "Политику конфиденциальности.".length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+        with(binding) {
+            tvPolicy.apply {
+                text = spannable
+                movementMethod = LinkMovementMethod.getInstance()
+                highlightColor = Color.TRANSPARENT
+                linksClickable = true
 
-        binding.tvPolicy.apply {
-            text = spannable
-            movementMethod = LinkMovementMethod.getInstance()
-            highlightColor = Color.TRANSPARENT
-            linksClickable = true
+            }
+
+            tvMailing.setOnClickListener {
+                viewModel.toggleMailing()
+            }
+
+            btnChoiceTutor.setOnClickListener {
+                viewModel.selectAccountType(SignUpAccountTypeViewModel.AccountType.TUTOR)
+            }
+            btnChoiceStudent.setOnClickListener {
+                viewModel.selectAccountType(SignUpAccountTypeViewModel.AccountType.STUDENT)
+            }
 
         }
 
 
 
-        with(binding) {
-            tvPolicy.text = spannable
-            tvPolicy.movementMethod = LinkMovementMethod.getInstance()
-            btnChoiceTutor.setOnClickListener {
-                btnChoiceTutor.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireView().context,
-                        R.color.primary_green
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.accountType.collect { type ->
+                    updateButtonSelection(type)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isMailingEnabled.collect { isChecked ->
+                    binding.cbMailing.isChecked = isChecked
+                }
+            }
+        }
+
+    }
+
+    private fun updateButtonSelection(type: SignUpAccountTypeViewModel.AccountType?) {
+        when (type) {
+            SignUpAccountTypeViewModel.AccountType.TUTOR -> {
+                with(binding) {
+                    btnChoiceTutor.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireView().context,
+                            R.color.primary_green
+                        )
                     )
-                )
-                btnChoiceTutor.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.cards_color
+                    btnChoiceTutor.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.cards_color
+                        )
                     )
-                )
-                isTutor = true
-                if (isStudent) {
                     btnChoiceStudent.setBackgroundColor(
                         ContextCompat.getColor(
                             requireContext(),
@@ -122,27 +153,12 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
                             R.color.foreground
                         )
                     )
-                    isStudent = false
                 }
-                btnChoiceStudent.isClickable = true
-                btnChoiceTutor.isClickable = false
-                Log.i("flags", "Репетитор:${isTutor}, Ученик: ${isStudent}")
+
             }
-            btnChoiceStudent.setOnClickListener {
-                btnChoiceStudent.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.primary_green
-                    )
-                )
-                btnChoiceStudent.setTextColor(
-                    ContextCompat.getColor(
-                        requireView().context,
-                        R.color.cards_color
-                    )
-                )
-                isStudent = true
-                if (isTutor) {
+
+            SignUpAccountTypeViewModel.AccountType.STUDENT -> {
+                with(binding) {
                     btnChoiceTutor.setBackgroundColor(
                         ContextCompat.getColor(
                             requireView().context,
@@ -151,26 +167,28 @@ class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>
                     )
                     btnChoiceTutor.setTextColor(
                         ContextCompat.getColor(
-                            requireView().context,
+                            requireContext(),
                             R.color.foreground
                         )
                     )
-                    isTutor = false
+                    btnChoiceStudent.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.primary_green
+                        )
+                    )
+                    btnChoiceStudent.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.cards_color
+                        )
+                    )
                 }
-                btnChoiceTutor.isClickable = true
-                btnChoiceStudent.isClickable = false
-                Log.i("flags", "Репетитор:${isTutor}, Ученик: ${isStudent}")
             }
 
-            tvMailing.setOnClickListener {
-                cbMailing.isChecked = !cbMailing.isChecked
-            }
-
-
+            null -> {}
         }
-
     }
-
 
 
 }
