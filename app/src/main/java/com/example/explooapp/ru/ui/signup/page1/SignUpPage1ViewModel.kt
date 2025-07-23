@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.viewModel
+package com.example.explooapp.ru.ui.signup.page1
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

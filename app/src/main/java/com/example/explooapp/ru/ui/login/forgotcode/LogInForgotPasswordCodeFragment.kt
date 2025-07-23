@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.logIn.view
+package com.example.explooapp.ru.ui.login.forgotcode
 
 import android.annotation.SuppressLint
 import android.text.Editable
@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInForgotPasswordCodeBinding
 import com.example.explooapp.ru.ui.base.BaseFragment
-import com.example.explooapp.ru.ui.logIn.viewmodel.LogInForgotPasswordCodeViewModel
 import com.example.explooapp.ru.utils.getDefaultNavOptions
 import kotlinx.coroutines.launch
 

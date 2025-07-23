@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.view
+package com.example.explooapp.ru.ui.signup.accounttype
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -19,7 +19,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpAccountTypeBinding
 import com.example.explooapp.ru.ui.base.BaseFragment
-import com.example.explooapp.ru.ui.signup.viewModel.SignUpAccountTypeViewModel
 import kotlinx.coroutines.launch
 
 class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>() {

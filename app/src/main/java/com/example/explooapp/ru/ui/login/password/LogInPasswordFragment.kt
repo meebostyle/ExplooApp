@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.logIn.view
+package com.example.explooapp.ru.ui.login.password
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.example.explooapp.ru.ui.base.BaseFragment
 import com.example.explooapp.ru.utils.getDefaultNavOptions
 
 class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {
-    private val navController: NavController by lazy {findNavController()}
+    private val navController: NavController by lazy { findNavController()}
 
     override fun createBinding(
         inflater: LayoutInflater,

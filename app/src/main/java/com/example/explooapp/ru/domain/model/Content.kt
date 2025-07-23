@@ -13,3 +13,4 @@ fun ContentResponse.toContent(): Content {
         financialImpact = financialImpact
     )
 }
+

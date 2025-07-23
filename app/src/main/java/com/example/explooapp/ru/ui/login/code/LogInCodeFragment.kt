@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.logIn.view
+package com.example.explooapp.ru.ui.login.code
 
 import android.annotation.SuppressLint
 import android.text.Editable
@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInCodeBinding
 import com.example.explooapp.ru.ui.base.BaseFragment
-import com.example.explooapp.ru.ui.logIn.viewmodel.LogInCodeViewModel
 import com.example.explooapp.ru.utils.getDefaultNavOptions
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,6 @@
 package com.example.explooapp.ru.data
 
 import com.example.explooapp.ru.data.model.TestResponse
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,7 +13,7 @@ class TestRepository {
 
     private val service = retrofit.create(TestService::class.java)
 
-    fun getTickets(page: Int, limit: Int, objectId: String): Call<TestResponse> {
+    suspend fun getTickets(page: Int, limit: Int, objectId: String): TestResponse {
         return service.getTickets(page, limit, objectId)
     }
 }

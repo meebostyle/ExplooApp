@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.view
+package com.example.explooapp.ru.ui.signup.page2
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpPage2Binding
 import com.example.explooapp.ru.ui.base.BaseFragment
-import com.example.explooapp.ru.ui.signup.viewModel.SignUpPage2ViewModel
 import com.example.explooapp.ru.utils.getDefaultNavOptions
 import kotlinx.coroutines.launch
 
