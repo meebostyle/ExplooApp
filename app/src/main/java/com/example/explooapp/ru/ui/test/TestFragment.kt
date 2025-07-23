@@ -28,7 +28,10 @@ class TestFragment : BaseFragment<FragmentTestBinding>() {
         super.configureView()
         with(binding) {
             button.setOnClickListener {
-                viewModel.getStatistic()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.getStatistic()
+                }
+
             }
 
             list.adapter = adapter

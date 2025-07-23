@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.viewModel
+package com.example.explooapp.ru.ui.signup.accounttype
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,5 +21,6 @@ class SignUpAccountTypeViewModel: ViewModel() {
     }
 
     enum class AccountType { TUTOR, STUDENT }
+
 
 }

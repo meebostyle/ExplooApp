@@ -1,10 +1,10 @@
-package com.example.explooapp.ru.ui.logIn.viewmodel
+package com.example.explooapp.ru.ui.login.login
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class LogInViewModel:ViewModel() {
+class LogInViewModel: ViewModel() {
 
     private val _isPhoneCorrect = MutableStateFlow(false)
     val isPhoneCorrect = _isPhoneCorrect.asStateFlow()
