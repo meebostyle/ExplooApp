@@ -81,4 +81,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+
+    implementation(libs.accompanist.adaptive)
+
+    //compose navigation
+    implementation(libs.androidx.navigation.compose)
 }
