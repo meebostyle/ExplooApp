@@ -1,9 +1,13 @@
 package com.example.explooapp.ru.ui.screens.auth.logincode
 
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +25,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +38,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +47,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.alfatesttask.ui.theme.Foreground
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.Primary
@@ -47,12 +55,25 @@ import com.example.alfatesttask.ui.theme.PrimaryShadow
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
 import com.example.explooapp.ru.ui.UIKit.items.RectangleNextButton
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
 @Composable
-fun LogInMailScreen(modifier: Modifier = Modifier) {
+fun LogInMailScreen(
+    modifier: Modifier = Modifier,
+    viewModel: LogInCodeViewModel = viewModel()
+) {
+    val focusManager = LocalFocusManager.current
     Box(
-        modifier = modifier,
+        modifier = modifier
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ) {
+                viewModel.clearFocus()
+                focusManager.clearFocus()
+            },
         contentAlignment = Alignment.TopCenter
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -63,7 +84,7 @@ fun LogInMailScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.fillMaxHeight(0.33f))
             Text(
-                text = "Введите код",
+                text = "Добро пожаловать!",
                 fontFamily = onestFontFamily,
                 fontSize = 24.sp,
                 fontWeight = FontWeight(600)
@@ -78,7 +99,7 @@ fun LogInMailScreen(modifier: Modifier = Modifier) {
                 color = ForegroundMuted
             )
             Spacer(modifier = Modifier.height(12.dp))
-            CodeInputField()
+            CodeInputField(viewModel = viewModel)
             Spacer(modifier = Modifier.height(12.dp))
             RectangleNextButton(
                 fontFamily = onestFontFamily,
@@ -103,23 +124,35 @@ fun LogInMailScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun CodeInputField(
-    onCodeComplete: (String) -> Unit = {}
+    onCodeComplete: (String) -> Unit = {},
+    viewModel: LogInCodeViewModel = viewModel(),
 ) {
     var code by rememberSaveable { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
+    var isFocused = viewModel.isFocused.collectAsState().value
+    val focusManager = LocalFocusManager.current
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() }
+                ) {
+                    viewModel.setFocus()
+                    focusRequester.requestFocus()
+                },
             horizontalArrangement = Arrangement.Center
         ) {
             repeat(6) { index ->
                 CodeBox(
                     digit = code.getOrElse(index) { ' ' },
-                    isFocused = code.length == index,
-                    isActive = code.length > index
+                    isFocused = code.length == index && isFocused,
+                    isActive = code.length > index,
+                    viewModel = viewModel
                 )
             }
         }
@@ -129,8 +162,12 @@ fun CodeInputField(
             onValueChange = { newValue ->
                 if (newValue.length <= 6 && newValue.all { it.isDigit() }) {
                     code = newValue
+                    viewModel.setFocus() // Поддерживаем фокус при вводе
                     if (newValue.length == 6) {
                         onCodeComplete(newValue)
+                        // Опционально: снять фокус при завершении ввода
+                        viewModel.clearFocus()
+                        focusManager.clearFocus()
                     }
                 }
             },
@@ -139,30 +176,28 @@ fun CodeInputField(
                 fontSize = 1.sp, // Невидимый текст
                 color = Color.Transparent
             ),
+            cursorBrush = SolidColor(Color.Transparent),
             modifier = Modifier
-                .focusRequester(focusRequester)
                 .size(1.dp) // Невидимый размер
-                .focusable(),
+                .focusable()
+                .focusRequester(focusRequester),
         )
     }
 
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
 }
 
 @Composable
 fun CodeBox(
     digit: Char,
     isFocused: Boolean,
-    isActive: Boolean
+    isActive: Boolean,
+    viewModel: LogInCodeViewModel = viewModel()
 ) {
     Box(
         modifier = Modifier
             .size(48.dp)
             .background(
                 color = Color.White,
-                shape = RoundedCornerShape(8.dp)
             ),
         contentAlignment = Alignment.Center
     )
@@ -198,15 +233,38 @@ fun CodeBox(
                     )
             )
         }
+        val cursorAlpha = remember { Animatable(0f) }
+
+        LaunchedEffect(isFocused) {
+            if (isFocused) {
+                while (true) {
+                    launch {
+                        cursorAlpha.animateTo(
+                            targetValue = 1f,
+                            animationSpec = tween(700)
+                        )
+                    }
+                    delay(700)
+                    launch {
+                        cursorAlpha.animateTo(
+                            targetValue = 0f,
+                            animationSpec = tween(400)
+                        )
+                    }
+                    delay(700)
+                }
+            } else {
+                cursorAlpha.snapTo(0f)
+            }
+        }
 
 
-        // Курсор для активной позиции
         if (isFocused) {
             Box(
                 modifier = Modifier
-                    .width(2.dp)
+                    .width(1.dp)
                     .height(24.dp)
-                    .background(Primary)
+                    .background(Primary.copy(alpha = cursorAlpha.value))
             )
         }
     }
