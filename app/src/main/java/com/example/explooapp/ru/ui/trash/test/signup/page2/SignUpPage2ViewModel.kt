@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.page2
+package com.example.explooapp.ru.ui.trash.test.signup.page2
 
 import android.util.Patterns
 import androidx.lifecycle.ViewModel

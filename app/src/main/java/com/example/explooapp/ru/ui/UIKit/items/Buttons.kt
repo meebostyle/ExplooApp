@@ -24,6 +24,7 @@ import com.example.alfatesttask.ui.theme.handwriteFontFamily
 @Preview(showBackground = true)
 @Composable
 fun NextButton(
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier
         .width(128.dp)
         .height(48.dp),
@@ -34,7 +35,7 @@ fun NextButton(
 ) {
     Box(modifier = modifier) {
         Button(
-            onClick = {},
+            onClick = onClick,
             modifier = modifier,
             colors = ButtonColors(Primary, Background, Primary, Background),
             elevation = ButtonDefaults.elevatedButtonElevation()
@@ -54,6 +55,7 @@ fun NextButton(
 @Preview(showBackground = true)
 @Composable
 fun RectangleNextButton(
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier
         .width(128.dp)
         .height(48.dp),
@@ -65,7 +67,7 @@ fun RectangleNextButton(
 ) {
     Box(modifier = modifier) {
         Button(
-            onClick = {},
+            onClick = onClick,
             shape = shape,
             modifier = modifier,
             colors = ButtonColors(Primary, Background, Primary, Background),

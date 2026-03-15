@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.test
+package com.example.explooapp.ru.ui.trash.test
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.explooapp.databinding.FragmentTestBinding
 import com.example.explooapp.ru.ui.base.BaseFragment
-import com.example.explooapp.ru.ui.test.adapter.TestAdapter
+import com.example.explooapp.ru.ui.trash.test.adapter.TestAdapter
 import kotlinx.coroutines.launch
 
 class TestFragment : BaseFragment<FragmentTestBinding>() {

@@ -6,7 +6,7 @@
     app:startDestination="@id/navigation_log_in">
     <fragment
         android:id="@+id/navigation_sign_up_page1"
-        android:name="com.example.explooapp.ru.ui.signup.page1.SignUpPage1Fragment"
+        android:name="com.example.explooapp.ru.ui.trash.test.signup.page1.SignUpPage1Fragment"
         tools:layout="@layout/fragment_sign_up_page1" />
     <fragment
         android:id="@+id/navigation_log_in"
@@ -22,16 +22,16 @@
         tools:layout="@layout/fragment_log_in_password" />
     <fragment
         android:id="@+id/navigation_sign_up_page2"
-        android:name="com.example.explooapp.ru.ui.signup.page2.SignUpPage2Fragment"
+        android:name="com.example.explooapp.ru.ui.trash.test.signup.page2.SignUpPage2Fragment"
         tools:layout="@layout/fragment_sign_up_page2" />
 
     <fragment
         android:id="@+id/navigation_sign_up_code"
-        android:name="com.example.explooapp.ru.ui.signup.code.SignUpCodeFragment"
+        android:name="com.example.explooapp.ru.ui.trash.test.signup.code.SignUpCodeFragment"
         tools:layout="@layout/fragment_sign_up_code" />
     <fragment
         android:id="@+id/navigation_sign_up_account_type"
-        android:name="com.example.explooapp.ru.ui.signup.accounttype.SignUpAccountTypeFragment"
+        android:name="com.example.explooapp.ru.ui.trash.test.signup.accounttype.SignUpAccountTypeFragment"
         tools:layout="@layout/fragment_sign_up_account_type" />
 
     <fragment

@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.accounttype
+package com.example.explooapp.ru.ui.trash.test.signup.accounttype
 
 import android.annotation.SuppressLint
 import android.graphics.Color

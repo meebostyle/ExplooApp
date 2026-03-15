@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.signup.code
+package com.example.explooapp.ru.ui.trash.test.signup.code
 
 import android.annotation.SuppressLint
 import android.text.Editable

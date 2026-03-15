@@ -54,17 +54,19 @@ import com.example.alfatesttask.ui.theme.Primary
 import com.example.alfatesttask.ui.theme.PrimaryShadow
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
+import com.example.explooapp.ru.ui.LocalNavigationManager
 import com.example.explooapp.ru.ui.UIKit.items.RectangleNextButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
 @Composable
-fun LogInMailScreen(
+fun LogInCodeScreen(
     modifier: Modifier = Modifier,
     viewModel: LogInCodeViewModel = viewModel()
 ) {
     val focusManager = LocalFocusManager.current
+    LocalNavigationManager.current
     Box(
         modifier = modifier
             .clickable(

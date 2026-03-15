@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.test
+package com.example.explooapp.ru.ui.trash.test
 
 import androidx.lifecycle.ViewModel
 import com.example.explooapp.ru.data.TestRepository

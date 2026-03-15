@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,13 +32,15 @@ import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.PrimaryShadow
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
+import com.example.explooapp.ru.ui.LocalNavigationManager
 import com.example.explooapp.ru.ui.UIKit.items.RectangleNextButton
 
 @Preview(showBackground = true)
 @Composable
 fun LogInMailScreen(modifier: Modifier = Modifier) {
+    val navManager = LocalNavigationManager.current
     Box(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.TopCenter
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -98,7 +101,10 @@ fun LogInMailScreen(modifier: Modifier = Modifier) {
                         shape = RoundedCornerShape(12.dp),
                         spotColor = PrimaryShadow
                     ),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                onClick = {
+                    navManager.navigateToLogInCode()
+                }
             )
 
         }

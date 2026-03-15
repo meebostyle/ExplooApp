@@ -1,5 +1,6 @@
-package com.example.explooapp.ru.ui.screens.welcome.pages
+package com.example.explooapp.ru.ui.screens.auth.welcome
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,7 @@ import com.example.alfatesttask.ui.theme.PrimaryShadow
 import com.example.alfatesttask.ui.theme.advakenSans
 import com.example.alfatesttask.ui.theme.handwriteFontFamily
 import com.example.alfatesttask.ui.theme.onestFontFamily
+import com.example.explooapp.ru.ui.LocalNavigationManager
 import com.example.explooapp.ru.ui.UIKit.backgounds.MathBackground
 import com.example.explooapp.ru.ui.UIKit.items.NextButton
 import com.example.explooapp.ru.ui.UIKit.items.WavyLine
@@ -43,12 +45,13 @@ import com.example.explooapp.ru.ui.UIKit.items.WavyLine
     showSystemUi = true
 )
 @Composable
-fun GreetingPage() {
+fun WelcomeScreen() {
     MathBackground()
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+        val navManager = LocalNavigationManager.current
 
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -123,7 +126,11 @@ fun GreetingPage() {
                         shape = ShapeDefaults.ExtraLarge,
                         spotColor = PrimaryShadow
                     ),
-                text = "ПОПРОБОВАТЬ БЕСПЛАТНО"
+                text = "ПОПРОБОВАТЬ БЕСПЛАТНО",
+                onClick = {
+                    Log.i("TAG", "clicked")
+                    navManager.navigateToLogInMail()
+                }
             )
         }
 

@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.test.adapter
+package com.example.explooapp.ru.ui.trash.test.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
