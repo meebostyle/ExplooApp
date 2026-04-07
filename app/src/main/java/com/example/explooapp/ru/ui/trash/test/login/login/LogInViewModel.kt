@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.login.login
+package com.example.explooapp.ru.ui.trash.test.login.login
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

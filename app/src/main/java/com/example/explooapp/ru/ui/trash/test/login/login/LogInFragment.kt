@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.login.login
+package com.example.explooapp.ru.ui.trash.test.login.login
 
 import android.annotation.SuppressLint
 import android.text.InputFilter
@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInBinding
-import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.trash.test.base.BaseFragment
 import com.example.explooapp.ru.utils.getDefaultNavOptions
 import com.vicmikhailau.maskededittext.addMaskedTextChangedListener
 import kotlinx.coroutines.launch

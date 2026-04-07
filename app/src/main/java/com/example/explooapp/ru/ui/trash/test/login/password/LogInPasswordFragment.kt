@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.login.password
+package com.example.explooapp.ru.ui.trash.test.login.password
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentLogInPasswordBinding
-import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.trash.test.base.BaseFragment
 import com.example.explooapp.ru.utils.getDefaultNavOptions
 
 class LogInPasswordFragment : BaseFragment<FragmentLogInPasswordBinding>() {

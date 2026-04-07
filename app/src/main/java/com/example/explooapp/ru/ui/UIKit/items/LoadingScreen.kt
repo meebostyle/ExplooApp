@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframesWithSpline
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,9 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.alfatesttask.ui.theme.Primary
 import com.example.explooapp.R
 import kotlinx.coroutines.launch
 
@@ -31,7 +37,6 @@ fun LoadingScreenPlane() {
     val offsetX = remember { Animatable(0f) }
     val offsetY = remember { Animatable(0f) }
     val alpha = remember { Animatable(1f) }
-    val trailOffset = remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
         launch {
@@ -87,51 +92,33 @@ fun LoadingScreenPlane() {
             )
         }
 
-        // Анимация для следа
-        launch {
-            trailOffset.animateTo(
-                1f,
-                animationSpec = infiniteRepeatable(
-                    animation = keyframesWithSpline {
-                        durationMillis = 1500
-                        0f at 0
-                        0.3f at 200
-                        0.5f at 400
-                        0.7f at 600
-                        0.9f at 900
-                        1f at 1200
-                        1f at 1500
-                    },
-                    repeatMode = RepeatMode.Restart
-                )
-            )
-        }
+
     }
 
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        // Несколько изображений для создания следа
-        for (i in 0..3) {
-            val trailProgress = (trailOffset.value - i * 0.25f).coerceIn(0f, 1f)
-            val trailX = -100f + (350f * trailProgress)
-            val trailY = 50f + (-150f * trailProgress)
+        Canvas(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            val path = Path()
+            path.moveTo(size.width / 2, size.height / 2)
+            path.lineTo(
+                x = size.width / 2 + offsetX.value - 40,
+                y = size.height / 2 + offsetY.value + 20
+            )
 
-            Image(
-                painter = painterResource(id = R.drawable.ic_plane),
-                contentDescription = null,
-                modifier = Modifier
-                    .size((20 - i * 4).dp)
-                    .offset(
-                        x = (offsetX.value * trailProgress + trailX * (1f - trailProgress)).dp,
-                        y = (offsetY.value * trailProgress + trailY * (1f - trailProgress)).dp
-                    )
-                    .rotate(60f)
-                    .alpha((0.3f - i * 0.1f) * (1f - trailProgress))
+            drawPath(
+                path = path,
+                color = Primary,
+                style = Stroke(
+                    width = 3.dp.toPx(),
+                    cap = StrokeCap.Round, // Добавьте эту строку для закругления концов
+                    pathEffect = PathEffect.cornerPathEffect(90f) // радиус закругления углов
+                )
             )
         }
-
         Image(
             painter = painterResource(id = R.drawable.ic_plane),
             contentDescription = "logo",

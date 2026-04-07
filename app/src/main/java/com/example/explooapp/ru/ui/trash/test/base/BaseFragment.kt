@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.base
+package com.example.explooapp.ru.ui.trash.test.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

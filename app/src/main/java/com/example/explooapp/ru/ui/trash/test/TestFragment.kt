@@ -8,8 +8,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.explooapp.databinding.FragmentTestBinding
-import com.example.explooapp.ru.ui.base.BaseFragment
 import com.example.explooapp.ru.ui.trash.test.adapter.TestAdapter
+import com.example.explooapp.ru.ui.trash.test.base.BaseFragment
 import kotlinx.coroutines.launch
 
 class TestFragment : BaseFragment<FragmentTestBinding>() {

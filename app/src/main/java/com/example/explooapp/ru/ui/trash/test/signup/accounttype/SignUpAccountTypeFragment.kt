@@ -18,7 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.explooapp.R
 import com.example.explooapp.databinding.FragmentSignUpAccountTypeBinding
-import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.trash.test.base.BaseFragment
 import kotlinx.coroutines.launch
 
 class SignUpAccountTypeFragment : BaseFragment<FragmentSignUpAccountTypeBinding>() {

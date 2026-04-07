@@ -1,9 +1,9 @@
-package com.example.explooapp.ru.ui.login.newpassword
+package com.example.explooapp.ru.ui.trash.test.login.newpassword
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.explooapp.databinding.FragmentLogInNewPasswordBinding
-import com.example.explooapp.ru.ui.base.BaseFragment
+import com.example.explooapp.ru.ui.trash.test.base.BaseFragment
 
 class LogInNewPasswordFragment : BaseFragment<FragmentLogInNewPasswordBinding>() {
 
