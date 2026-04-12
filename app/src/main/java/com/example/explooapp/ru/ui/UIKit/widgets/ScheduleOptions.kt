@@ -16,6 +16,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,6 +32,7 @@ import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
 import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
+import com.example.explooapp.ru.ui.UIKit.items.TextInputField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.DropdownList
 
 @Preview(
@@ -36,6 +41,8 @@ import com.example.explooapp.ru.ui.UIKit.items.dropdown.DropdownList
 @Composable
 fun ScheduleOptions() {
     val scrollState = rememberScrollState()
+    var lessonTitle by remember { mutableStateOf("") }
+    var themeTitle by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -113,6 +120,24 @@ fun ScheduleOptions() {
                     color = ForegroundMuted
                 )
             }
+            Spacer(modifier = Modifier.height(12.dp))
+
+            TextInputField(
+                value = lessonTitle,
+                onValueChange = {
+                    lessonTitle = it
+                },
+                placeholder = "Название занятия (необязательно)"
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+            TextInputField(
+                value = themeTitle,
+                onValueChange = {
+                    themeTitle = it
+                },
+                placeholder = "Название темы (необязательно)"
+            )
 
 
         }
