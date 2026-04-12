@@ -89,4 +89,7 @@ dependencies {
 
     //compose navigation
     implementation(libs.androidx.navigation.compose)
+
+    //compose-items
+    implementation(libs.xicon.pack.z)
 }
