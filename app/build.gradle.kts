@@ -91,5 +91,12 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     //compose-items
-    implementation(libs.xicon.pack.z)
+    implementation(libs.composeIcons.cssGg)
+    implementation(libs.composeIcons.weatherIcons)
+    implementation(libs.composeIcons.evaIcons)
+    implementation(libs.composeIcons.feather)
+    implementation(libs.composeIcons.linea)
+    implementation(libs.composeIcons.octicons)
+    implementation(libs.composeIcons.simpleIcons)
+    implementation(libs.composeIcons.tablerIcons)
 }
