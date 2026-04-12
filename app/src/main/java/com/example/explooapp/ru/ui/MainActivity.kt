@@ -1,22 +1,41 @@
 package com.example.explooapp.ru.ui
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.explooapp.R
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
+import androidx.navigation.compose.rememberNavController
+import com.example.alfatesttask.ui.theme.ExplooTheme
+import com.example.explooapp.ru.ui.navigation.ComposeNavigationManager
+import com.example.explooapp.ru.ui.navigation.NavGraph
+import com.example.explooapp.ru.ui.navigation.NavRoutes
+import com.example.explooapp.ru.ui.navigation.NavigationManager
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        setContent {
+            ExplooTheme {
+                val navController = rememberNavController()
+                val navigationManager = ComposeNavigationManager(
+                    navController = navController
+                )
+                CompositionLocalProvider(
+                    LocalNavigationManager provides navigationManager
+                ) {
+                    NavGraph(
+                        navController = navController,
+                        startDestination = NavRoutes.Welcome.route
+                    )
+                }
+            }
         }
     }
+}
+
+val LocalNavigationManager = compositionLocalOf<NavigationManager> {
+    error("No navigation manager provided")
 }

@@ -1,36 +1,67 @@
 [versions]
-agp = "8.6.1"
-kotlin = "1.9.0"
-coreKtx = "1.15.0"
+accompanistAdaptive = "0.34.0"
+agp = "8.13.0"
+kotlin = "2.1.20"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
+appcompat = "1.7.1"
 maskededittext = "5.0.3"
-material = "1.12.0"
-activity = "1.10.1"
+material = "1.13.0"
+activity = "1.12.3"
 constraintlayout = "2.2.1"
+navigationCompose = "2.9.6"
 navigationFragmentKtx = "2.8.9"
 navigationUiKtx = "2.8.9"
 pinview = "1.4.4"
 retrofit = "2.11.0"
+activityCompose = "1.13.0"
+
+compose-bom = "2026.03.01"
+composeCompiler = "1.5.7"
+xicon_pack_z = "1.1.1"
 
 [libraries]
+# Kotlin Extensions
+accompanist-adaptive = { module = "com.google.accompanist:accompanist-adaptive", version.ref = "accompanistAdaptive" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# AndroidX UI Components
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-maskededittext = { module = "io.github.vicmikhailau:MaskedEditText", version.ref = "maskededittext" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+# Navigation Components
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
-pinview = { module = "io.github.chaosleung:pinview", version.ref = "pinview" }
+
+# Network
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+# Input Components
+pinview = { module = "io.github.chaosleung:pinview", version.ref = "pinview" }
+maskededittext = { module = "io.github.vicmikhailau:MaskedEditText", version.ref = "maskededittext" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+xicon_pack_z = { module = "br.com.devsrsouza.compose.icons:{ICON_PACK}", version.ref = "xicon_pack_z" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
