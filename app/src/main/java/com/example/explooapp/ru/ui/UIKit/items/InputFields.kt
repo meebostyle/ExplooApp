@@ -31,7 +31,6 @@ import com.example.alfatesttask.ui.theme.onestFontFamily
 
 @Preview(
     showBackground = true,
-
     )
 @Composable
 fun TextInputField(

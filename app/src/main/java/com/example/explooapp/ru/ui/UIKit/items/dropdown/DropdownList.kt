@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
@@ -60,6 +61,8 @@ import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
 import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
+import compose.icons.TablerIcons
+import compose.icons.tablericons.FileOff
 
 @Preview(
     showBackground = true,
@@ -183,7 +186,7 @@ private fun ChosenItem(
     expanded: Boolean = true,
     onClick: () -> Unit = {},
     text: String = "Математика",
-    icon: Int? = null,
+    icon: ImageVector? = null,
     color: Color = ForegroundMuted
 ) {
     val rotate by animateFloatAsState(
@@ -225,7 +228,7 @@ private fun ChosenItem(
                 if (icon != null) {
                     Icon(
                         modifier = Modifier.size(12.dp),
-                        painter = painterResource(icon),
+                        imageVector = icon,
                         contentDescription = "",
                         tint = color
                     )
@@ -270,13 +273,13 @@ private fun DropList(
     listItems: List<ItemModel> = LessonsList.entries.map { it.toListItem() },
     onClick: (
         String,
-        Int?,
+        ImageVector?,
         Color
     ) -> Unit,
     isLessonMenu: Boolean = true
 
 ) {
-    val favoriteList = listOf<LessonsList>(LessonsList.Math).map { it.toListItem() }
+    val favoriteList = listOf<LessonsList>(LessonsList.NoChosen).map { it.toListItem() }
     val listItem = listItems.filter { it !in favoriteList }
     Column {
 
@@ -315,11 +318,10 @@ private fun DropList(
                                     horizontalArrangement = Arrangement.Start,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
+
                                     Icon(
                                         modifier = Modifier.size(12.dp),
-                                        painter = painterResource(
-                                            listItem.first().icon ?: R.drawable.ic_plus
-                                        ),
+                                        imageVector = listItem.first().icon ?: TablerIcons.FileOff,
                                         contentDescription = "",
                                         tint = ForegroundMuted
                                     )
@@ -380,7 +382,7 @@ private fun DropList(
                                         if (icon != null)
                                             Icon(
                                                 modifier = Modifier.size(12.dp),
-                                                painter = painterResource(icon),
+                                                imageVector = icon,
                                                 contentDescription = "",
                                                 tint = color
                                             )
@@ -453,7 +455,7 @@ private fun DropList(
                                     if (icon !== null)
                                         Icon(
                                             modifier = Modifier.size(12.dp),
-                                            painter = painterResource(icon),
+                                            imageVector = icon,
                                             contentDescription = "",
                                             tint = color
                                         )
@@ -482,6 +484,5 @@ private fun DropList(
             }
         }
     }
-
 }
 
