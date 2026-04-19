@@ -18,20 +18,19 @@ import com.example.explooapp.ru.ui.UIKit.items.icons.history
 import com.example.explooapp.ru.ui.UIKit.items.icons.literature
 import com.example.explooapp.ru.ui.UIKit.items.icons.math
 import com.example.explooapp.ru.ui.UIKit.items.icons.music
+import com.example.explooapp.ru.ui.UIKit.items.icons.noChosen
 import com.example.explooapp.ru.ui.UIKit.items.icons.phys
 import com.example.explooapp.ru.ui.UIKit.items.icons.prog
 import com.example.explooapp.ru.ui.UIKit.items.icons.rus
 import com.example.explooapp.ru.ui.UIKit.items.icons.social
 import com.example.explooapp.ru.ui.UIKit.items.icons.spain
-import compose.icons.TablerIcons
-import compose.icons.tablericons.FileOff
 
 enum class LessonsList(
     val icon: ImageVector?,
     val lesson: String,
     val color: Color
 ) {
-    NoChosen(icon = TablerIcons.FileOff, lesson = "Без предмета", color = ForegroundMuted),
+    NoChosen(icon = ScheduleIcons.noChosen, lesson = "Без предмета", color = ForegroundMuted),
     Eng(icon = ScheduleIcons.eng, lesson = "Английский язык", color = Color(46, 204, 113)),
     Bio(icon = ScheduleIcons.bio, lesson = "Биология", color = Color(28, 188, 156)),
     Geo(icon = ScheduleIcons.geo, lesson = "География", color = Color(0, 184, 148)),

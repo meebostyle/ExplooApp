@@ -46,7 +46,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
@@ -58,11 +57,11 @@ import androidx.compose.ui.window.PopupProperties
 import com.example.alfatesttask.ui.theme.DarkBackground
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.onestFontFamily
-import com.example.explooapp.R
 import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
-import compose.icons.TablerIcons
-import compose.icons.tablericons.FileOff
+import com.example.explooapp.ru.ui.UIKit.items.icons.DefaultIcons
+import com.example.explooapp.ru.ui.UIKit.items.icons.check
+import com.example.explooapp.ru.ui.UIKit.items.icons.downArrow
 
 @Preview(
     showBackground = true,
@@ -251,7 +250,7 @@ private fun ChosenItem(
                         modifier = Modifier
                             .size(12.dp)
                             .rotate(rotate),
-                        painter = painterResource(R.drawable.ic_plus),
+                        imageVector = DefaultIcons.downArrow,
                         contentDescription = "",
                         tint = ForegroundMuted
                     )
@@ -279,8 +278,9 @@ private fun DropList(
     isLessonMenu: Boolean = true
 
 ) {
-    val favoriteList = listOf<LessonsList>(LessonsList.NoChosen).map { it.toListItem() }
-    val listItem = listItems.filter { it !in favoriteList }
+    val favoriteList = listOf<LessonsList>(LessonsList.Math).map { it.toListItem() }
+    val listItem =
+        listItems.filter { it !in favoriteList && it != LessonsList.NoChosen.toListItem() }
     Column {
 
         Surface(
@@ -307,9 +307,9 @@ private fun DropList(
                                     )
                                     .clickable {
                                         onClick(
-                                            listItem.first().text,
-                                            listItem.first().icon,
-                                            listItem.first().color
+                                            LessonsList.NoChosen.lesson,
+                                            LessonsList.NoChosen.icon,
+                                            LessonsList.NoChosen.color
                                         )
                                     },
                                 horizontalArrangement = Arrangement.SpaceBetween
@@ -321,7 +321,7 @@ private fun DropList(
 
                                     Icon(
                                         modifier = Modifier.size(12.dp),
-                                        imageVector = listItem.first().icon ?: TablerIcons.FileOff,
+                                        imageVector = LessonsList.NoChosen.icon!!,
                                         contentDescription = "",
                                         tint = ForegroundMuted
                                     )
@@ -329,19 +329,19 @@ private fun DropList(
 
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
-                                        text = listItem.first().text,
+                                        text = LessonsList.NoChosen.lesson,
                                         fontFamily = onestFontFamily,
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight(400),
                                         color = DarkBackground
                                     )
                                 }
-                                if (chosenItem == listItem.first().text)
+                                if (chosenItem == LessonsList.NoChosen.lesson)
                                     Icon(
                                         modifier = Modifier.size(12.dp),
-                                        painter = painterResource(R.drawable.ic_plus),
+                                        imageVector = DefaultIcons.check,
                                         contentDescription = "",
-                                        tint = ForegroundMuted
+                                        tint = DarkBackground
                                     )
                             }
 
@@ -398,9 +398,9 @@ private fun DropList(
                                     if (text == chosenItem)
                                         Icon(
                                             modifier = Modifier.size(12.dp),
-                                            painter = painterResource(R.drawable.ic_plus),
+                                            imageVector = DefaultIcons.check,
                                             contentDescription = "",
-                                            tint = ForegroundMuted
+                                            tint = DarkBackground
                                         )
 
 
@@ -471,9 +471,9 @@ private fun DropList(
                                 if (chosenItem == text)
                                     Icon(
                                         modifier = Modifier.size(12.dp),
-                                        painter = painterResource(R.drawable.ic_plus),
+                                        imageVector = DefaultIcons.check,
                                         contentDescription = "",
-                                        tint = ForegroundMuted
+                                        tint = DarkBackground
                                     )
 
                             }
