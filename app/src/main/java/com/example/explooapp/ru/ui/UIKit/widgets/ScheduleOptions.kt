@@ -1,5 +1,6 @@
 package com.example.explooapp.ru.ui.UIKit.widgets
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +38,7 @@ import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
 import com.example.explooapp.ru.ui.UIKit.items.TextInputField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.DropdownList
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
 
 @Preview(
     showBackground = true
@@ -149,8 +151,38 @@ fun ScheduleOptions() {
                 },
                 placeholder = "Название темы (необязательно)"
             )
+            Spacer(modifier = Modifier.height(12.dp))
+            Box(modifier = Modifier.fillMaxWidth()
+                .height(0.5.dp)
+                .background(ForegroundMuted))
+            Spacer(modifier = Modifier.height(12.dp))
 
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier.size(12.dp),
+                    painter = painterResource(R.drawable.ic_plus),
+                    contentDescription = "",
+                    tint = ForegroundMuted
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Дата, время и длительность",
+                    fontFamily = onestFontFamily,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight(400),
+                    color = ForegroundMuted
+                )
 
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row() {
+                DatePickerField()
+            }
         }
     }
 }

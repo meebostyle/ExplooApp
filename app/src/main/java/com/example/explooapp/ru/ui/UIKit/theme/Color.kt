@@ -23,7 +23,7 @@ val DarkCardsColor = Color(0xFF2F2F2F)
 
 val Background = Color(0xFFfaf8f5)
 val Foreground = Color(0xFF222222) ///#222222FF
-val ForegroundMuted = Color(0xFF737373)
+val ForegroundMuted = Color(0xFF969696)
 val Primary = Color(0xFF009869)
 val PrimaryShadow = Color(0x63009869) //#00986947
 val PrimaryForeground = Color(0xFFedfdf5)
