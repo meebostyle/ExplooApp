@@ -39,6 +39,7 @@ import com.example.explooapp.ru.domain.schedule.toListItem
 import com.example.explooapp.ru.ui.UIKit.items.TextInputField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.DropdownList
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.TimePickerField
 
 @Preview(
     showBackground = true
@@ -181,7 +182,13 @@ fun ScheduleOptions() {
             Spacer(modifier = Modifier.height(12.dp))
 
             Row() {
-                DatePickerField()
+                Box(modifier = Modifier.weight(2.5f)){
+                    DatePickerField()
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Box(modifier = Modifier.weight(1f)){
+                    TimePickerField()
+                }
             }
         }
     }
