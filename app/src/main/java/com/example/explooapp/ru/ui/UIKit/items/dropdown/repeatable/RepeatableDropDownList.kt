@@ -1,14 +1,19 @@
 package com.example.explooapp.ru.ui.UIKit.items.dropdown.repeatable
 
 import android.util.Log
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.with
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -20,6 +25,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -55,11 +61,14 @@ import androidx.compose.ui.window.PopupProperties
 import com.example.alfatesttask.ui.theme.DarkBackground
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.onestFontFamily
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
 import com.example.explooapp.ru.ui.UIKit.items.icons.DefaultIcons
 import com.example.explooapp.ru.ui.UIKit.items.icons.check
 import com.example.explooapp.ru.ui.UIKit.items.icons.downArrow
+import com.example.explooapp.ru.ui.UIKit.items.pickers.DayOfWeekPicker
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Preview(
     showBackground = true,
 //    backgroundColor = 0xFF222222
@@ -82,6 +91,20 @@ fun RepeatableDropDownList() {
     )
     val scale by animateFloatAsState(
         targetValue = if (expanded) 1f else 0.98f,
+        animationSpec = tween(durationMillis = 300)
+    )
+    val extraItems = listOf("Ежедневно", "Еженедельно", "По дням недели")
+
+    var lastExtraItem by remember { mutableStateOf(extraItems[0]) }
+
+    if (chosenItem != "Разовое занятие") {
+        lastExtraItem = chosenItem
+    }
+
+    val isExtraSpace = chosenItem != "Разовое занятие"
+
+    val extraAlpha by animateFloatAsState(
+        targetValue = if (chosenItem != "Разовое занятие") 1f else 0f,
         animationSpec = tween(durationMillis = 300)
     )
     val offset by animateOffsetAsState(
@@ -118,6 +141,54 @@ fun RepeatableDropDownList() {
                 )
             }
 
+
+// Анимация раскрытия/схлопывания (AnimatedVisibility)
+            AnimatedVisibility(
+                modifier = Modifier.alpha(extraAlpha),
+                visible = isExtraSpace,
+                enter = expandVertically(animationSpec = tween(400)),
+                exit = shrinkVertically(animationSpec = tween(400))
+            ) {
+                // Внутри – анимированная смена контента (fade)
+                AnimatedContent(
+                    targetState = lastExtraItem,
+                    transitionSpec = {
+                        fadeIn(animationSpec = tween(300)) with fadeOut(animationSpec = tween(300))
+                    }
+                ) { item ->
+                    when (item) {
+                        "Ежедневно", "Еженедельно" -> {
+                            Column {
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text(
+                                    text = "Дата окончания (необязательно)",
+                                    fontFamily = onestFontFamily,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight(400),
+                                    color = ForegroundMuted
+                                )
+                                DatePickerField()
+                            }
+                        }
+                        "По дням недели" -> {
+                            Column {
+                                Spacer(modifier = Modifier.height(12.dp))
+                                DayOfWeekPicker()
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "Дата окончания (необязательно)",
+                                    fontFamily = onestFontFamily,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight(400),
+                                    color = ForegroundMuted
+                                )
+                                DatePickerField()
+                            }
+                        }
+                    }
+                }
+            }
+
         }
         AnimatedVisibility(
             visible = expanded,
@@ -149,6 +220,7 @@ fun RepeatableDropDownList() {
                         onClick = { text->
                             expanded = false
                             chosenItem = text
+                            Log.i("chosenItem", "$chosenItem, $isExtraSpace")
                         },
                         chosenItem = chosenItem,
                         listItems = listItems,

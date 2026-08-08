@@ -217,6 +217,11 @@ fun ScheduleOptions() {
             }
             Spacer(modifier = Modifier.height(8.dp))
             RepeatableDropDownList()
+            Spacer(modifier = Modifier.height(12.dp))
+            Box(modifier = Modifier.fillMaxWidth()
+                .height(0.5.dp)
+                .background(ForegroundMuted))
+            Spacer(modifier = Modifier.height(12.dp))
 
         }
     }

@@ -22,12 +22,13 @@ import com.example.alfatesttask.ui.theme.Primary
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.ru.ui.UIKit.items.AnimatedColoredSurfaceSheet
 
+
 @Preview(
     showBackground = true, backgroundColor = 0xFFFF0000
 )
 @Composable
-fun TimeDurationPicker(){
-    val timeList = listOf("15 мин", "30 мин", "45 мин", "1 ч", "1 ч 15 мин", "1 ч 30 мин", "1 ч 45 мин", "2 ч")
+fun DayOfWeekPicker(){
+    val timeList = listOf("Пн", "Вт", "Ср", "Чт", "Пн", "Сб", "Вс")
     var choosenTime = ""
     LazyRow(){
         items(timeList.count()){
@@ -47,7 +48,7 @@ private fun TimeDurationPickerItem(time: String, clickable: (() -> Unit)){
     var isActive by remember { mutableStateOf(false) }
     AnimatedColoredSurfaceSheet(
         clickable = {
-            isActive = true
+            isActive = !isActive
             clickable()
         },
         color = if (isActive) Primary else ForegroundMuted.copy(0.4f)

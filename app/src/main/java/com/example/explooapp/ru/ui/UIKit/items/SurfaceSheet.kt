@@ -1,6 +1,7 @@
 package com.example.explooapp.ru.ui.UIKit.items
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,7 +24,8 @@ fun AnimatedSurfaceSheet(clickable: (() -> Unit), content: @Composable (() -> Un
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val animateScale = animateFloatAsState(
-        targetValue = if (isPressed) 0.98f else 1f
+        targetValue = if (isPressed) 0.98f else 1f,
+        animationSpec = tween(durationMillis = 300)
     )
     Surface(
         modifier = Modifier
@@ -50,7 +52,8 @@ fun AnimatedColoredSurfaceSheet(clickable: (() -> Unit), color: Color, content: 
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val animateScale = animateFloatAsState(
-        targetValue = if (isPressed) 0.98f else 1f
+        targetValue = if (isPressed) 0.98f else 1f,
+        animationSpec = tween(durationMillis = 300)
     )
     Surface(
         modifier = Modifier
