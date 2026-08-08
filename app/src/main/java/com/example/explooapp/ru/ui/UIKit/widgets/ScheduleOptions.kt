@@ -37,9 +37,10 @@ import com.example.explooapp.R
 import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
 import com.example.explooapp.ru.ui.UIKit.items.TextInputField
-import com.example.explooapp.ru.ui.UIKit.items.dropdown.DropdownList
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.lessonList.DropdownListForLessonMenu
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.TimePickerField
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.repeatable.RepeatableDropDownList
 import com.example.explooapp.ru.ui.UIKit.items.pickers.TimeDurationPicker
 
 @Preview(
@@ -111,7 +112,7 @@ fun ScheduleOptions() {
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            DropdownList(LessonsList.entries.map { it.toListItem() })
+            DropdownListForLessonMenu(LessonsList.entries.map { it.toListItem()})
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -215,6 +216,8 @@ fun ScheduleOptions() {
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
+            RepeatableDropDownList()
+
         }
     }
 }

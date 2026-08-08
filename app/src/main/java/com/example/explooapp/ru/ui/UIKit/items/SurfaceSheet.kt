@@ -23,7 +23,7 @@ fun AnimatedSurfaceSheet(clickable: (() -> Unit), content: @Composable (() -> Un
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val animateScale = animateFloatAsState(
-        targetValue = if (isPressed) 0.95f else 1f
+        targetValue = if (isPressed) 0.98f else 1f
     )
     Surface(
         modifier = Modifier
@@ -50,7 +50,7 @@ fun AnimatedColoredSurfaceSheet(clickable: (() -> Unit), color: Color, content: 
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val animateScale = animateFloatAsState(
-        targetValue = if (isPressed) 0.95f else 1f
+        targetValue = if (isPressed) 0.98f else 1f
     )
     Surface(
         modifier = Modifier

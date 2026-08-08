@@ -3,7 +3,7 @@ package com.example.explooapp.ru.domain.schedule
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.alfatesttask.ui.theme.ForegroundMuted
-import com.example.explooapp.ru.ui.UIKit.items.dropdown.ItemModel
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.lessonList.DropdownLessonListItemModel
 import com.example.explooapp.ru.ui.UIKit.items.icons.ScheduleIcons
 import com.example.explooapp.ru.ui.UIKit.items.icons.art
 import com.example.explooapp.ru.ui.UIKit.items.icons.bio
@@ -55,10 +55,11 @@ enum class LessonsList(
     Chemistry(icon = ScheduleIcons.chemistry, lesson = "Химия", color = Color(230, 126, 34)),
 }
 
-fun LessonsList.toListItem(): ItemModel {
-    return (ItemModel(
+fun LessonsList.toListItem(): DropdownLessonListItemModel {
+    return (DropdownLessonListItemModel(
         icon = icon,
         text = lesson,
         color = color,
     ))
 }
+

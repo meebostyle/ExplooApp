@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.items.dropdown
+package com.example.explooapp.ru.ui.UIKit.items.dropdown.lessonList
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -12,6 +12,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -68,8 +70,8 @@ import com.example.explooapp.ru.ui.UIKit.items.icons.downArrow
 //    backgroundColor = 0xFF222222
 )
 @Composable
-fun DropdownList(
-    listItem: List<ItemModel> = LessonsList.entries.map { it.toListItem() },
+fun DropdownListForLessonMenu(
+    listItem: List<DropdownLessonListItemModel> = LessonsList.entries.map { it.toListItem() },
     isLessonMenu: Boolean = true
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -77,8 +79,8 @@ fun DropdownList(
     val parentSize = remember { mutableStateOf(IntSize.Zero) }
     val listItem = remember { listItem }
     val chosenItem = remember {
-        mutableStateOf<ItemModel>(
-            ItemModel(
+        mutableStateOf<DropdownLessonListItemModel>(
+            DropdownLessonListItemModel(
                 text = listItem.first().text,
                 icon = listItem.first().icon,
                 color = listItem.first().color
@@ -160,7 +162,7 @@ fun DropdownList(
                         offset = offset,
                         onClick = { text, icon, color ->
                             expanded = false
-                            chosenItem.value = ItemModel(
+                            chosenItem.value = DropdownLessonListItemModel(
                                 text = text,
                                 icon = icon,
                                 color = color
@@ -195,12 +197,21 @@ private fun ChosenItem(
             stiffness = Spring.StiffnessLow
         )
     )
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val animateScale by animateFloatAsState(
+        targetValue = if (isPressed) 0.98f else 1f
+    )
 
 
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable
+            .scale(animateScale)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            )
             {
                 onClick()
             },
@@ -269,7 +280,7 @@ private fun DropList(
     scale: Float = 1f,
     offset: Offset = Offset(x = 0f, y = 0f),
     chosenItem: String = "",
-    listItems: List<ItemModel> = LessonsList.entries.map { it.toListItem() },
+    listItems: List<DropdownLessonListItemModel> = LessonsList.entries.map { it.toListItem() },
     onClick: (
         String,
         ImageVector?,
@@ -292,7 +303,8 @@ private fun DropList(
                 .scale(scale)
                 .offset(x = offset.x.dp, y = offset.y.dp),
             color = Color.White,
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
+            border = BorderStroke(width = 1.dp, ForegroundMuted.copy(0.2f))
         ) {
             Column {
                 LazyColumn {
