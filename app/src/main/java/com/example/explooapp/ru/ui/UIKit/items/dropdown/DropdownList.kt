@@ -204,7 +204,7 @@ private fun ChosenItem(
             {
                 onClick()
             },
-        color = Color.Transparent,
+        color = ForegroundMuted.copy(0.05f),
         border = BorderStroke(
             width = 1.dp,
             color = ForegroundMuted.copy(alpha = 0.2f)

@@ -39,6 +39,7 @@ import com.example.alfatesttask.ui.theme.DarkBackground
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
+import com.example.explooapp.ru.ui.UIKit.items.AnimatedSurfaceSheet
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -57,28 +58,12 @@ fun DatePickerField() {
     )
 
     var showModel by remember { mutableStateOf(false) }
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-
-    val animateScale = animateFloatAsState(
-        targetValue = if (isPressed) 0.9f else 1f
-    )
-
     var fieldText by remember { mutableStateOf("Выберите дату") }
 
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .scale(animateScale.value)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                showModel = true
-            },
-        color = Color.Transparent,
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, ForegroundMuted.copy(0.2f))
+    AnimatedSurfaceSheet(
+        clickable = {
+            showModel = true
+        }
     ) {
         Row(
             modifier = Modifier

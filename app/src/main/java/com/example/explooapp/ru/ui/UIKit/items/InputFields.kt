@@ -74,7 +74,7 @@ fun TextInputField(
         Surface(
             modifier = Modifier
                 .padding(2.dp),
-            color = Color.Transparent,
+            color = ForegroundMuted.copy(0.05f),
             shape = RoundedCornerShape(12.dp),
             border = BorderStroke(1.dp, ForegroundMuted.copy(borderInAlpha.value))
         ) {

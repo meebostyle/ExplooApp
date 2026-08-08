@@ -40,6 +40,7 @@ import com.example.explooapp.ru.ui.UIKit.items.TextInputField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.DropdownList
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.TimePickerField
+import com.example.explooapp.ru.ui.UIKit.items.pickers.TimeDurationPicker
 
 @Preview(
     showBackground = true
@@ -190,6 +191,30 @@ fun ScheduleOptions() {
                     TimePickerField()
                 }
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            TimeDurationPicker()
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier.size(12.dp),
+                    painter = painterResource(R.drawable.ic_plus),
+                    contentDescription = "",
+                    tint = ForegroundMuted
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Повторяемость",
+                    fontFamily = onestFontFamily,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight(400),
+                    color = ForegroundMuted
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
