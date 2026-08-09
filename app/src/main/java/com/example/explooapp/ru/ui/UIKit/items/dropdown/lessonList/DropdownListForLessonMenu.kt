@@ -317,7 +317,10 @@ private fun DropList(
                                         horizontal = 12.dp,
                                         vertical = 12.dp
                                     )
-                                    .clickable {
+                                    .clickable(
+                                        interactionSource = null,
+                                        indication = null
+                                    ) {
                                         onClick(
                                             LessonsList.NoChosen.lesson,
                                             LessonsList.NoChosen.icon,
@@ -378,7 +381,10 @@ private fun DropList(
                                             horizontal = 12.dp,
                                             vertical = 12.dp
                                         )
-                                        .clickable {
+                                        .clickable(
+                                            interactionSource = null,
+                                            indication = null
+                                        ) {
                                             onClick(
                                                 text,
                                                 icon,
@@ -451,7 +457,10 @@ private fun DropList(
                                         horizontal = 12.dp,
                                         vertical = 12.dp
                                     )
-                                    .clickable {
+                                    .clickable(
+                                        interactionSource = null,
+                                        indication = null
+                                    ) {
                                         onClick(
                                             text,
                                             icon,

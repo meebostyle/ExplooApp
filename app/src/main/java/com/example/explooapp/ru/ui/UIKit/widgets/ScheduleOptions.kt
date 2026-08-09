@@ -52,7 +52,6 @@ fun ScheduleOptions() {
     var lessonTitle by remember { mutableStateOf("") }
     var themeTitle by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -222,6 +221,28 @@ fun ScheduleOptions() {
                 .height(0.5.dp)
                 .background(ForegroundMuted))
             Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier.size(12.dp),
+                    painter = painterResource(R.drawable.ic_plus),
+                    contentDescription = "",
+                    tint = ForegroundMuted
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Ученики",
+                    fontFamily = onestFontFamily,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight(400),
+                    color = ForegroundMuted
+                )
+            }
+
 
         }
     }

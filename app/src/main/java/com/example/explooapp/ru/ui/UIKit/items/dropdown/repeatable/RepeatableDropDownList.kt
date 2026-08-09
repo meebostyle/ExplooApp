@@ -350,7 +350,10 @@ private fun DropList(
                                         horizontal = 12.dp,
                                         vertical = 12.dp
                                     )
-                                    .clickable {
+                                    .clickable(
+                                        interactionSource = null,
+                                        indication = null
+                                    ) {
                                         onClick(
                                             listItems[it]
                                         )
