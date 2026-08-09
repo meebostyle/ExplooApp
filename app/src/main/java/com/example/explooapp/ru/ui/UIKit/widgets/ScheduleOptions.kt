@@ -37,10 +37,12 @@ import com.example.explooapp.R
 import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
 import com.example.explooapp.ru.ui.UIKit.items.TextInputField
+import com.example.explooapp.ru.ui.UIKit.items.dropdown.boards.DropdownBoards
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.lessonList.DropdownListForLessonMenu
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.TimePickerField
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.repeatable.RepeatableDropDownList
+import com.example.explooapp.ru.ui.UIKit.items.pickers.StudentsPicker
 import com.example.explooapp.ru.ui.UIKit.items.pickers.TimeDurationPicker
 
 @Preview(
@@ -63,7 +65,8 @@ fun ScheduleOptions() {
                 focusManager.clearFocus()
             }
     ) {
-        Column(modifier = Modifier.verticalScroll(scrollState)) {
+        Column(modifier = Modifier.fillMaxSize()) { // ← внешний Column на весь экран
+            // Шапка (не скроллится)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -84,166 +87,195 @@ fun ScheduleOptions() {
                         color = ForegroundMuted
                     )
                 }
-                Text(
-                    text = "X"
-                )
+                Text(text = "X")
             }
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    painter = painterResource(R.drawable.ic_plus),
-                    contentDescription = "",
-                    tint = ForegroundMuted
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Предмет",
-                    fontFamily = onestFontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight(400),
-                    color = ForegroundMuted
-                )
-            }
-            Spacer(modifier = Modifier.height(12.dp))
+            Column(modifier = Modifier
+                .weight(1f)
+                .verticalScroll(scrollState)) {
 
-            DropdownListForLessonMenu(LessonsList.entries.map { it.toListItem()})
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    painter = painterResource(R.drawable.ic_plus),
-                    contentDescription = "",
-                    tint = ForegroundMuted
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Название и тема",
-                    fontFamily = onestFontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight(400),
-                    color = ForegroundMuted
-                )
-            }
-            Spacer(modifier = Modifier.height(12.dp))
-
-            TextInputField(
-                value = lessonTitle,
-                onValueChange = {
-                    lessonTitle = it
-                },
-                placeholder = "Название занятия (необязательно)"
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-            TextInputField(
-                value = themeTitle,
-                onValueChange = {
-                    themeTitle = it
-                },
-                placeholder = "Название темы (необязательно)"
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Box(modifier = Modifier.fillMaxWidth()
-                .height(0.5.dp)
-                .background(ForegroundMuted))
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    painter = painterResource(R.drawable.ic_plus),
-                    contentDescription = "",
-                    tint = ForegroundMuted
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Дата, время и длительность",
-                    fontFamily = onestFontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight(400),
-                    color = ForegroundMuted
-                )
-
-            }
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Row() {
-                Box(modifier = Modifier.weight(2.5f)){
-                    DatePickerField()
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Предмет",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
                 }
-                Spacer(modifier = Modifier.width(8.dp))
-                Box(modifier = Modifier.weight(1f)){
-                    TimePickerField()
+                Spacer(modifier = Modifier.height(12.dp))
+
+                DropdownListForLessonMenu(LessonsList.entries.map { it.toListItem()})
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Название и тема",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
                 }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            TimeDurationPicker()
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    painter = painterResource(R.drawable.ic_plus),
-                    contentDescription = "",
-                    tint = ForegroundMuted
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Повторяемость",
-                    fontFamily = onestFontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight(400),
-                    color = ForegroundMuted
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            RepeatableDropDownList()
-            Spacer(modifier = Modifier.height(12.dp))
-            Box(modifier = Modifier.fillMaxWidth()
-                .height(0.5.dp)
-                .background(ForegroundMuted))
-            Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(12.dp),
-                    painter = painterResource(R.drawable.ic_plus),
-                    contentDescription = "",
-                    tint = ForegroundMuted
+                TextInputField(
+                    value = lessonTitle,
+                    onValueChange = {
+                        lessonTitle = it
+                    },
+                    placeholder = "Название занятия (необязательно)"
                 )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = "Ученики",
-                    fontFamily = onestFontFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight(400),
-                    color = ForegroundMuted
+
+                Spacer(modifier = Modifier.height(8.dp))
+                TextInputField(
+                    value = themeTitle,
+                    onValueChange = {
+                        themeTitle = it
+                    },
+                    placeholder = "Название темы (необязательно)"
                 )
+                Spacer(modifier = Modifier.height(12.dp))
+                Box(modifier = Modifier.fillMaxWidth()
+                    .height(0.5.dp)
+                    .background(ForegroundMuted))
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Дата, время и длительность",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
+
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row() {
+                    Box(modifier = Modifier.weight(2.5f)){
+                        DatePickerField()
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Box(modifier = Modifier.weight(1f)){
+                        TimePickerField()
+                    }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                TimeDurationPicker()
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Повторяемость",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                RepeatableDropDownList()
+                Spacer(modifier = Modifier.height(12.dp))
+                Box(modifier = Modifier.fillMaxWidth()
+                    .height(0.5.dp)
+                    .background(ForegroundMuted))
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Ученики",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                StudentsPicker()
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Доска",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                DropdownBoards()
             }
 
 
-        }
+
     }
+}
 }

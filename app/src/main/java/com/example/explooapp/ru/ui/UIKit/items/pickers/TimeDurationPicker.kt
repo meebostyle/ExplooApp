@@ -60,7 +60,7 @@ private fun TimeDurationPickerItem(time: String, clickable: (() -> Unit)){
                 fontFamily = onestFontFamily,
                 fontSize = 10.sp,
                 fontWeight = FontWeight(400),
-                color = ForegroundMuted)
+                color = if (isActive) Primary else ForegroundMuted)
         }
     }
 }
