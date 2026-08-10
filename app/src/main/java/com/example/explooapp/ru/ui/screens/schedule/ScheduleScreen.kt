@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
-import com.example.explooapp.ru.ui.UIKit.items.SquareButton
+import com.example.explooapp.ru.ui.UIKit.items.buttons.SquareButton
 
 
 @Preview(

@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.items
+package com.example.explooapp.ru.ui.UIKit.items.buttons
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -40,6 +40,7 @@ import com.example.alfatesttask.ui.theme.FeatureSchedule
 import com.example.alfatesttask.ui.theme.Primary
 import com.example.alfatesttask.ui.theme.handwriteFontFamily
 import com.example.alfatesttask.ui.theme.onestFontFamily
+import com.example.explooapp.ru.ui.UIKit.items.DropDownListItem
 
 @Preview(showBackground = true)
 @Composable

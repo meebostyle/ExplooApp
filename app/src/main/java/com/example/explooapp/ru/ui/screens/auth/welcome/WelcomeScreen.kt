@@ -36,7 +36,7 @@ import com.example.alfatesttask.ui.theme.handwriteFontFamily
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.ru.ui.LocalNavigationManager
 import com.example.explooapp.ru.ui.UIKit.backgounds.MathBackground
-import com.example.explooapp.ru.ui.UIKit.items.NextButton
+import com.example.explooapp.ru.ui.UIKit.items.buttons.NextButton
 import com.example.explooapp.ru.ui.UIKit.items.WavyLine
 
 

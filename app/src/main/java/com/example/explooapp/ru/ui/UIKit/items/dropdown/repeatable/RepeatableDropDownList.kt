@@ -66,6 +66,7 @@ import com.example.explooapp.ru.ui.UIKit.items.icons.DefaultIcons
 import com.example.explooapp.ru.ui.UIKit.items.icons.check
 import com.example.explooapp.ru.ui.UIKit.items.icons.downArrow
 import com.example.explooapp.ru.ui.UIKit.items.pickers.DayOfWeekPicker
+import com.example.explooapp.ru.utils.providers.FixedPopupPositionProvider
 
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -201,10 +202,12 @@ fun RepeatableDropDownList() {
                     .clickable { expanded = false }
             ) {
                 Popup(
-                    alignment = Alignment.TopCenter,
-                    offset = IntOffset(
-                        0,
-                        parentSize.value.height + with(density) { 4.dp.roundToPx() }
+                    popupPositionProvider = FixedPopupPositionProvider(
+                        contentOffset = IntOffset(
+                            0,
+                            parentSize.value.height + with(density) { 4.dp.roundToPx() }
+                        ),
+                        alignment = Alignment.TopCenter
                     ),
                     onDismissRequest = { expanded = false },
                     properties = PopupProperties(
@@ -380,7 +383,6 @@ private fun DropList(
                                         contentDescription = "",
                                         tint = DarkBackground
                                     )
-
                             }
                     }
                 }

@@ -37,6 +37,7 @@ import com.example.explooapp.R
 import com.example.explooapp.ru.domain.schedule.LessonsList
 import com.example.explooapp.ru.domain.schedule.toListItem
 import com.example.explooapp.ru.ui.UIKit.items.TextInputField
+import com.example.explooapp.ru.ui.UIKit.items.buttons.RoomButton
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.boards.DropdownBoards
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.lessonList.DropdownListForLessonMenu
 import com.example.explooapp.ru.ui.UIKit.items.dropdown.dateandtime.DatePickerField
@@ -272,7 +273,56 @@ fun ScheduleOptions() {
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 DropdownBoards()
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Задание",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                StudentsPicker()
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(12.dp),
+                        painter = painterResource(R.drawable.ic_plus),
+                        contentDescription = "",
+                        tint = ForegroundMuted
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Ссылка на звонок",
+                        fontFamily = onestFontFamily,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400),
+                        color = ForegroundMuted
+                    )
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                RoomButton()
+
             }
+
+
 
 
 

@@ -64,6 +64,7 @@ import com.example.explooapp.ru.domain.schedule.toListItem
 import com.example.explooapp.ru.ui.UIKit.items.icons.DefaultIcons
 import com.example.explooapp.ru.ui.UIKit.items.icons.check
 import com.example.explooapp.ru.ui.UIKit.items.icons.downArrow
+import com.example.explooapp.ru.utils.providers.FixedPopupPositionProvider
 
 @Preview(
     showBackground = true,
@@ -144,10 +145,12 @@ fun DropdownListForLessonMenu(
                     .clickable { expanded = false }
             ) {
                 Popup(
-                    alignment = Alignment.TopCenter,
-                    offset = IntOffset(
-                        0,
-                        parentSize.value.height + with(density) { 4.dp.roundToPx() }
+                    popupPositionProvider = FixedPopupPositionProvider(
+                        contentOffset = IntOffset(
+                            0,
+                            parentSize.value.height + with(density) { 4.dp.roundToPx() }
+                        ),
+                        alignment = Alignment.TopCenter
                     ),
                     onDismissRequest = { expanded = false },
                     properties = PopupProperties(
@@ -287,13 +290,11 @@ private fun DropList(
         Color
     ) -> Unit,
     isLessonMenu: Boolean = true
-
 ) {
     val favoriteList = listOf<LessonsList>(LessonsList.Math).map { it.toListItem() }
     val listItem =
         listItems.filter { it !in favoriteList && it != LessonsList.NoChosen.toListItem() }
     Column {
-
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
