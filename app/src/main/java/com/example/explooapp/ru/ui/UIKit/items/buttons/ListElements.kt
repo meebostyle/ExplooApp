@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.items
+package com.example.explooapp.ru.ui.UIKit.items.buttons
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

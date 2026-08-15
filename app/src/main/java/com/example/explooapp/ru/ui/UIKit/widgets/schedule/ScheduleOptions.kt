@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.widgets
+package com.example.explooapp.ru.ui.UIKit.widgets.schedule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -94,7 +94,7 @@ fun ScheduleOptions() {
                 .weight(1f)
                 .verticalScroll(scrollState)) {
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
@@ -115,11 +115,11 @@ fun ScheduleOptions() {
                         color = ForegroundMuted
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 DropdownListForLessonMenu(LessonsList.entries.map { it.toListItem()})
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -141,7 +141,7 @@ fun ScheduleOptions() {
                         color = ForegroundMuted
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 TextInputField(
                     value = lessonTitle,
@@ -159,11 +159,11 @@ fun ScheduleOptions() {
                     },
                     placeholder = "Название темы (необязательно)"
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Box(modifier = Modifier.fillMaxWidth()
                     .height(0.5.dp)
                     .background(ForegroundMuted))
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -186,7 +186,7 @@ fun ScheduleOptions() {
                     )
 
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Row() {
                     Box(modifier = Modifier.weight(2.5f)){
@@ -199,7 +199,7 @@ fun ScheduleOptions() {
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 TimeDurationPicker()
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
@@ -294,7 +294,7 @@ fun ScheduleOptions() {
                         color = ForegroundMuted
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 StudentsPicker()
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
@@ -317,8 +317,10 @@ fun ScheduleOptions() {
                         color = ForegroundMuted
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 RoomButton()
+                Spacer(modifier = Modifier.height(16.dp))
+
 
             }
 
