@@ -8,13 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,9 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
-import androidx.compose.ui.zIndex
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.Primary
+import com.example.explooapp.ru.ui.UIKit.widgets.calendar.items.CalendarLessonCard
 
 @Preview(
     showBackground = true
@@ -59,6 +55,7 @@ fun SingleDayCalendarView(){
     val startHour = 5
     val lineOffsetY = timeTextHeight / 2
 
+
     Box(modifier = Modifier.verticalScroll(scrollState)) {
         Column {
             repeat(20) { index ->
@@ -84,19 +81,13 @@ fun SingleDayCalendarView(){
             val hour = getIntHoursFromTime(lesson.time)
             val minute = getIntMinutesFromTime(lesson.time)
             val topOffset = (hour - startHour) * hourHeight + lineOffsetY + (minute / 60f) * hourHeight
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height((getHeightFromDuration(lesson.duration)-2).dp)
-                    .offset(y = topOffset)
-                    .padding(start = timeTextWidth + 8.dp, top = 1.dp)
-                    .zIndex(1f),
-                shape = RoundedCornerShape(12.dp),
-                border = BorderStroke(1.dp, Primary),
-                color = Primary.copy(0.4f)
-            ) {
-                // содержимое урока
-            }
+            CalendarLessonCard(
+                height = (getHeightFromDuration(lesson.duration)-2).dp,
+                topOffset = topOffset,
+                timeTextWidth = timeTextWidth,
+                color = Primary
+            )
+
         }
     }
 }
