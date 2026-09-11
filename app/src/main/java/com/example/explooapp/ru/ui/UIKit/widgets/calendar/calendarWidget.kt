@@ -2,6 +2,10 @@ package com.example.explooapp.ru.ui.UIKit.widgets.calendar
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.calculateZoom
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +17,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.positionChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -43,6 +53,9 @@ fun SingleDayCalendarView(){
             duration = 90
         )
     )
+    var scale by remember { mutableStateOf(1f) }
+    val minScale = 0.9f
+    val maxScale = 3f
     val density = LocalDensity.current
     val textMeasurer = rememberTextMeasurer()
     val textStyle = TextStyle(fontSize = 12.sp)
@@ -51,12 +64,31 @@ fun SingleDayCalendarView(){
     val timeTextWidth = with(density) { textLayout.size.width.toDp() }
     val timeTextHeight = with(density) { textLayout.size.height.toDp() }
 
-    val hourHeight = 48.dp
+    val hourHeight = 48.dp * scale
     val startHour = 5
     val lineOffsetY = timeTextHeight / 2
 
 
-    Box(modifier = Modifier.verticalScroll(scrollState)) {
+    Box( modifier = Modifier
+        .verticalScroll(scrollState)
+        .pointerInput(Unit) {
+            this.awaitEachGesture {
+                awaitFirstDown(requireUnconsumed = false)
+                do {
+                    val event = awaitPointerEvent()
+                    val pressedCount = event.changes.count { it.pressed }
+
+                    if (pressedCount > 1) {
+                        val zoomChange = event.calculateZoom()
+                        if (zoomChange != 1f) {
+                            scale = (scale * zoomChange).coerceIn(minScale, maxScale)
+                        }
+                        event.changes.forEach { if (it.positionChanged()) it.consume() }
+                    }
+                } while (event.changes.any { it.pressed })
+            }
+        }
+    ) {
         Column {
             repeat(20) { index ->
                 Box(modifier = Modifier.height(hourHeight)) {
@@ -82,7 +114,7 @@ fun SingleDayCalendarView(){
             val minute = getIntMinutesFromTime(lesson.time)
             val topOffset = (hour - startHour) * hourHeight + lineOffsetY + (minute / 60f) * hourHeight
             CalendarLessonCard(
-                height = (getHeightFromDuration(lesson.duration)-2).dp,
+                height = (getHeightFromDuration(lesson.duration)-2).dp * scale,
                 topOffset = topOffset,
                 timeTextWidth = timeTextWidth,
                 color = Primary

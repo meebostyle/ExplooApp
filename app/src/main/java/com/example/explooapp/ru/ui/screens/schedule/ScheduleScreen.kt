@@ -56,6 +56,7 @@ import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
 import com.example.explooapp.ru.ui.UIKit.items.buttons.SquareButton
+import com.example.explooapp.ru.ui.UIKit.widgets.calendar.SingleDayCalendarView
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
@@ -93,26 +94,7 @@ fun ScheduleScreen() {
                 SquareButton(label = R.drawable.ic_plus)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clipToBounds()
-            ) {
-                Column (modifier = Modifier.fillMaxSize()) {
-                    repeat(20) { col ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(1.dp)
-                                .background(ForegroundMuted.copy(0.4f))
-                        )
-                        if (col != 20){
-                            Spacer(modifier = Modifier.height(64.dp))
-                        }
-                    }
-
-                }
-            }
+            SingleDayCalendarView()
         }
     }
 }
