@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.widgets.schedule
+package com.example.explooapp.ru.ui.UIKit.widgets.schedule.options
 
 import com.example.explooapp.ru.domain.schedule.LessonsList
 

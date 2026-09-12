@@ -38,10 +38,7 @@ fun TextInputField(
     onValueChange: (String) -> Unit = {},
     modifier: Modifier = Modifier
         .fillMaxWidth()
-        .padding(
-            horizontal = 16.dp,
-            vertical = 12.dp
-        ),
+        ,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     singleLine: Boolean = false,
@@ -51,7 +48,8 @@ fun TextInputField(
         fontSize = 13.sp,
         fontWeight = FontWeight(400),
     ),
-    placeholder: String = "Название занятия (необязательно)"
+    placeholder: String = "Название занятия (необязательно)",
+    secondBorder: Boolean = true
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val focused by interactionSource.collectIsFocusedAsState()
@@ -61,7 +59,7 @@ fun TextInputField(
         animationSpec = tween(300)
     )
     val borderOutAlpha = animateFloatAsState(
-        targetValue = if (focused) 0.6f else 0f,
+        targetValue = if (focused && secondBorder) 0.6f else 0f,
         animationSpec = tween(300)
     )
 
@@ -80,14 +78,15 @@ fun TextInputField(
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
                 if (value.isEmpty()) {
                     Text(
                         text = placeholder,
                         style = textStyle,
                         color = ForegroundMuted,
-                        modifier = modifier
+                        modifier = modifier.padding(horizontal = 4.dp)
                     )
                 }
 
@@ -101,7 +100,9 @@ fun TextInputField(
                     singleLine = singleLine,
                     maxLines = maxLines,
                     textStyle = textStyle,
-                    modifier = modifier
+                    modifier = modifier.padding(
+                        vertical = 12.dp
+                    )
                 )
             }
         }

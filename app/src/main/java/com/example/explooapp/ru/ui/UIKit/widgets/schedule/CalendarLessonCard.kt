@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.widgets.calendar.items
+package com.example.explooapp.ru.ui.UIKit.widgets.schedule.items
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

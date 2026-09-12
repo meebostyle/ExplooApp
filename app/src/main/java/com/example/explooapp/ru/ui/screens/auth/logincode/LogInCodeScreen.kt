@@ -59,23 +59,71 @@ import com.example.explooapp.ru.ui.UIKit.items.buttons.RectangleNextButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@Preview(showBackground = true)
+
+
+// ---------- STATEFUL ----------
 @Composable
 fun LogInCodeScreen(
+    email: String,
     modifier: Modifier = Modifier,
-    viewModel: LogInCodeViewModel = viewModel()
+    viewModel: LogInCodeViewModel = viewModel(),
 ) {
     val focusManager = LocalFocusManager.current
-    LocalNavigationManager.current
+    val isFocused by viewModel.isFocused.collectAsState()
+
+    var code by rememberSaveable { mutableStateOf("") }
+    val focusRequester = remember { FocusRequester() }
+
+    LogInCodeContent(
+        email = email,
+        code = code,
+        isFocused = isFocused,
+        focusRequester = focusRequester,
+        modifier = modifier,
+        onScreenClick = {
+            viewModel.clearFocus()
+            focusManager.clearFocus()
+        },
+        onFieldClick = {
+            viewModel.setFocus()
+            focusRequester.requestFocus()
+        },
+        onCodeChange = { newValue ->
+            if (newValue.length <= 6 && newValue.all { it.isDigit() }) {
+                code = newValue
+                viewModel.setFocus()
+                if (newValue.length == 6) {
+                    viewModel.clearFocus()
+                    focusManager.clearFocus()
+                }
+            }
+        },
+        onContinueClick = {
+            // viewModel.submit(code)
+        }
+    )
+}
+
+
+// ---------- STATELESS ----------
+@Composable
+fun LogInCodeContent(
+    email: String,
+    code: String,
+    isFocused: Boolean,
+    focusRequester: FocusRequester,
+    onScreenClick: () -> Unit,
+    onFieldClick: () -> Unit,
+    onCodeChange: (String) -> Unit,
+    onContinueClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .clickable(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() }
-            ) {
-                viewModel.clearFocus()
-                focusManager.clearFocus()
-            },
+            ) { onScreenClick() },
         contentAlignment = Alignment.TopCenter
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -92,7 +140,6 @@ fun LogInCodeScreen(
                 fontWeight = FontWeight(600)
             )
             Spacer(modifier = Modifier.height(4.dp))
-            var email = "vlad20062003@yandex.ru"
             Text(
                 text = "Код отправлен на $email",
                 fontFamily = onestFontFamily,
@@ -101,7 +148,15 @@ fun LogInCodeScreen(
                 color = ForegroundMuted
             )
             Spacer(modifier = Modifier.height(12.dp))
-            CodeInputField(viewModel = viewModel)
+
+            CodeInputFieldContent(
+                code = code,
+                isFocused = isFocused,
+                focusRequester = focusRequester,
+                onCodeChange = onCodeChange,
+                onFieldClick = onFieldClick,
+            )
+
             Spacer(modifier = Modifier.height(12.dp))
             RectangleNextButton(
                 fontFamily = onestFontFamily,
@@ -116,25 +171,25 @@ fun LogInCodeScreen(
                         shape = RoundedCornerShape(12.dp),
                         spotColor = PrimaryShadow
                     ),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                onClick = onContinueClick
             )
-
         }
     }
 }
 
-@Preview(showBackground = true)
+// ---------- STATELESS (CODE FIELD)----------
 @Composable
-fun CodeInputField(
-    onCodeComplete: (String) -> Unit = {},
-    viewModel: LogInCodeViewModel = viewModel(),
+fun CodeInputFieldContent(
+    code: String,
+    isFocused: Boolean,
+    focusRequester: FocusRequester,
+    onCodeChange: (String) -> Unit,
+    onFieldClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    var code by rememberSaveable { mutableStateOf("") }
-    val focusRequester = remember { FocusRequester() }
-    var isFocused = viewModel.isFocused.collectAsState().value
-    val focusManager = LocalFocusManager.current
-
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -143,10 +198,7 @@ fun CodeInputField(
                 .clickable(
                     indication = null,
                     interactionSource = remember { MutableInteractionSource() }
-                ) {
-                    viewModel.setFocus()
-                    focusRequester.requestFocus()
-                },
+                ) { onFieldClick() },
             horizontalArrangement = Arrangement.Center
         ) {
             repeat(6) { index ->
@@ -154,56 +206,38 @@ fun CodeInputField(
                     digit = code.getOrElse(index) { ' ' },
                     isFocused = code.length == index && isFocused,
                     isActive = code.length > index,
-                    viewModel = viewModel
                 )
             }
         }
 
         BasicTextField(
             value = code,
-            onValueChange = { newValue ->
-                if (newValue.length <= 6 && newValue.all { it.isDigit() }) {
-                    code = newValue
-                    viewModel.setFocus() // Поддерживаем фокус при вводе
-                    if (newValue.length == 6) {
-                        onCodeComplete(newValue)
-                        // Опционально: снять фокус при завершении ввода
-                        viewModel.clearFocus()
-                        focusManager.clearFocus()
-                    }
-                }
-            },
+            onValueChange = onCodeChange,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            textStyle = TextStyle(
-                fontSize = 1.sp, // Невидимый текст
-                color = Color.Transparent
-            ),
+            textStyle = TextStyle(fontSize = 1.sp, color = Color.Transparent),
             cursorBrush = SolidColor(Color.Transparent),
             modifier = Modifier
-                .size(1.dp) // Невидимый размер
+                .size(1.dp)
                 .focusable()
                 .focusRequester(focusRequester),
         )
     }
-
 }
 
+// ---------- STATELESS  (CODE FIELD ITEMS)----------
 @Composable
 fun CodeBox(
     digit: Char,
     isFocused: Boolean,
     isActive: Boolean,
-    viewModel: LogInCodeViewModel = viewModel()
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(48.dp)
-            .background(
-                color = Color.White,
-            ),
+            .background(Color.Transparent),
         contentAlignment = Alignment.Center
-    )
-    {
+    ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Box(contentAlignment = Alignment.Center) {
                 if (!isFocused && !isActive) {
@@ -212,7 +246,7 @@ fun CodeBox(
                             .clip(RoundedCornerShape(16.dp))
                             .size(3.dp)
                             .background(ForegroundMuted)
-                    ) {}
+                    )
                 }
 
                 Text(
@@ -228,30 +262,25 @@ fun CodeBox(
                     .height(1.dp)
                     .background(
                         color = when {
-                            isFocused -> Primary // Синий когда в фокусе
-                            isActive -> ForegroundMuted   // Черный когда цифра введена
-                            else -> Foreground             // Серый когда пусто
+                            isFocused -> Primary
+                            isActive -> ForegroundMuted
+                            else -> Foreground
                         }
                     )
             )
         }
+
         val cursorAlpha = remember { Animatable(0f) }
 
         LaunchedEffect(isFocused) {
             if (isFocused) {
                 while (true) {
                     launch {
-                        cursorAlpha.animateTo(
-                            targetValue = 1f,
-                            animationSpec = tween(700)
-                        )
+                        cursorAlpha.animateTo(1f, animationSpec = tween(700))
                     }
                     delay(700)
                     launch {
-                        cursorAlpha.animateTo(
-                            targetValue = 0f,
-                            animationSpec = tween(400)
-                        )
+                        cursorAlpha.animateTo(0f, animationSpec = tween(400))
                     }
                     delay(700)
                 }
@@ -259,7 +288,6 @@ fun CodeBox(
                 cursorAlpha.snapTo(0f)
             }
         }
-
 
         if (isFocused) {
             Box(
@@ -269,5 +297,61 @@ fun CodeBox(
                     .background(Primary.copy(alpha = cursorAlpha.value))
             )
         }
+    }
+}
+private const val PREVIEW_EMAIL = "vlad20062003@yandex.ru"
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun LogInCodeContentEmptyPreview() {
+    LogInCodeContent(
+        email = PREVIEW_EMAIL,
+        code = "",
+        isFocused = false,
+        focusRequester = remember { FocusRequester() },
+        onScreenClick = {},
+        onFieldClick = {},
+        onCodeChange = {},
+        onContinueClick = {},
+    )
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun LogInCodeContentFocusPreview() {
+    LogInCodeContent(
+        email = PREVIEW_EMAIL,
+        code = "12",
+        isFocused = true,
+        focusRequester = remember { FocusRequester() },
+        onScreenClick = {},
+        onFieldClick = {},
+        onCodeChange = {},
+        onContinueClick = {},
+    )
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun LogInCodeContentFilledPreview() {
+    LogInCodeContent(
+        email = PREVIEW_EMAIL,
+        code = "123456",
+        isFocused = false,
+        focusRequester = remember { FocusRequester() },
+        onScreenClick = {},
+        onFieldClick = {},
+        onCodeChange = {},
+        onContinueClick = {},
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CodeBoxStatesPreview() {
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        CodeBox(digit = ' ', isFocused = false, isActive = false) // пусто
+        CodeBox(digit = ' ', isFocused = true,  isActive = false) // курсор
+        CodeBox(digit = '7', isFocused = false, isActive = true)  // введена
     }
 }

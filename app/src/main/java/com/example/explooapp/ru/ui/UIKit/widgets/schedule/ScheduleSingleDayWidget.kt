@@ -1,11 +1,10 @@
-package com.example.explooapp.ru.ui.UIKit.widgets.calendar
+package com.example.explooapp.ru.ui.UIKit.widgets.schedule
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.calculateZoom
-import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,28 +33,41 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.Primary
-import com.example.explooapp.ru.ui.UIKit.widgets.calendar.items.CalendarLessonCard
+import com.example.explooapp.ru.ui.UIKit.widgets.schedule.items.CalendarLessonCard
 
-@Preview(
-    showBackground = true
-)
+// ---------- STATEFUL ----------
+
 @Composable
-fun SingleDayCalendarView(){
+fun ScheduleSingleDayWidget(
+    lessons: List<LessonModel>,
+    modifier: Modifier = Modifier,
+) {
     val scrollState = rememberScrollState()
-    val lessons = mutableListOf(LessonModel(
-        name = "Математика",
-        time = "16:00",
-        duration = 120
-    ),
-        LessonModel(
-            name = "Английский язык",
-            time = "09:00",
-            duration = 90
-        )
-    )
     var scale by remember { mutableStateOf(1f) }
     val minScale = 0.9f
     val maxScale = 3f
+
+    ScheduleSingleDayContent(
+        lessons = lessons,
+        scale = scale,
+        scrollState = scrollState,
+        onZoom = { zoomChange ->
+            scale = (scale * zoomChange).coerceIn(minScale, maxScale)
+        },
+        modifier = modifier,
+    )
+}
+
+
+// ---------- STATELESS ----------
+@Composable
+fun ScheduleSingleDayContent(
+    lessons: List<LessonModel>,
+    scale: Float,
+    scrollState: ScrollState,
+    onZoom: (Float) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val density = LocalDensity.current
     val textMeasurer = rememberTextMeasurer()
     val textStyle = TextStyle(fontSize = 12.sp)
@@ -68,26 +80,23 @@ fun SingleDayCalendarView(){
     val startHour = 5
     val lineOffsetY = timeTextHeight / 2
 
-
-    Box( modifier = Modifier
-        .verticalScroll(scrollState)
-        .pointerInput(Unit) {
-            this.awaitEachGesture {
-                awaitFirstDown(requireUnconsumed = false)
-                do {
-                    val event = awaitPointerEvent()
-                    val pressedCount = event.changes.count { it.pressed }
-
-                    if (pressedCount > 1) {
-                        val zoomChange = event.calculateZoom()
-                        if (zoomChange != 1f) {
-                            scale = (scale * zoomChange).coerceIn(minScale, maxScale)
+    Box(
+        modifier = modifier
+            .verticalScroll(scrollState)
+            .pointerInput(Unit) {
+                awaitEachGesture {
+                    awaitFirstDown(requireUnconsumed = false)
+                    do {
+                        val event = awaitPointerEvent()
+                        val pressedCount = event.changes.count { it.pressed }
+                        if (pressedCount > 1) {
+                            val zoomChange = event.calculateZoom()
+                            if (zoomChange != 1f) onZoom(zoomChange)
+                            event.changes.forEach { if (it.positionChanged()) it.consume() }
                         }
-                        event.changes.forEach { if (it.positionChanged()) it.consume() }
-                    }
-                } while (event.changes.any { it.pressed })
+                    } while (event.changes.any { it.pressed })
+                }
             }
-        }
     ) {
         Column {
             repeat(20) { index ->
@@ -112,16 +121,56 @@ fun SingleDayCalendarView(){
         lessons.forEach { lesson ->
             val hour = getIntHoursFromTime(lesson.time)
             val minute = getIntMinutesFromTime(lesson.time)
-            val topOffset = (hour - startHour) * hourHeight + lineOffsetY + (minute / 60f) * hourHeight
+            val topOffset =
+                (hour - startHour) * hourHeight + lineOffsetY + (minute / 60f) * hourHeight
+
             CalendarLessonCard(
-                height = (getHeightFromDuration(lesson.duration)-2).dp * scale,
+                height = (getHeightFromDuration(lesson.duration) - 2).dp * scale,
                 topOffset = topOffset,
                 timeTextWidth = timeTextWidth,
                 color = Primary
             )
-
         }
     }
+}
+
+
+private val previewLessons = listOf(
+    LessonModel(name = "Математика", time = "16:00", duration = 120),
+    LessonModel(name = "Английский язык", time = "09:00", duration = 90),
+)
+
+@Preview(showBackground = true)
+@Composable
+private fun ScheduleSingleDayWidgetPreview() {
+    ScheduleSingleDayWidget(
+        lessons = previewLessons,
+        modifier = Modifier.height(600.dp)
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ScheduleSingleDayContentPreview() {
+    ScheduleSingleDayContent(
+        lessons = previewLessons,
+        scale = 1f,
+        scrollState = rememberScrollState(),
+        onZoom = {},
+        modifier = Modifier.height(600.dp)
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ScheduleSingleDayContentZoomedPreview() {
+    ScheduleSingleDayContent(
+        lessons = previewLessons,
+        scale = 2f,
+        scrollState = rememberScrollState(),
+        onZoom = {},
+        modifier = Modifier.height(600.dp)
+    )
 }
 
 private fun simpleDateFormate(extraTime: Int): String{
@@ -140,13 +189,7 @@ private fun getIntHoursFromTime(time: String): Int{
 private fun getIntMinutesFromTime(time: String): Int{
     return time.substring(3).toInt()
 }
-fun getOffsetFromDuration(time: String): Int{
-    val hours = getIntHoursFromTime(time)
-    val minutes = getIntMinutesFromTime(time)
-    val offsetSpacers = ((hours-5)*60+minutes) / 15 * 8
-    val offsetLines = (hours - 4)* 12
-    return offsetSpacers+offsetLines
-}
+
 
 data class LessonModel(
     val name: String,

@@ -1,4 +1,4 @@
-package com.example.explooapp.ru.ui.UIKit.widgets.schedule
+package com.example.explooapp.ru.ui.UIKit.widgets.schedule.options
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
