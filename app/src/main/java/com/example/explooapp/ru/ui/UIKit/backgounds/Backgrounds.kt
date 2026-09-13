@@ -141,8 +141,8 @@ fun MathBackground() {
 )
 @Composable
 fun DottedBackground() {
-    // Цвет из вашей цветовой схемы
-    val gridColor = ForegroundMuted// Используем Grid цвет
+
+    val gridColor = ForegroundMuted
 
     Canvas(
         modifier = Modifier

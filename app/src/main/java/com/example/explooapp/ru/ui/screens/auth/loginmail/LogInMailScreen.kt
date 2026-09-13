@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.alfatesttask.ui.theme.ForegroundMuted
 import com.example.alfatesttask.ui.theme.PrimaryShadow
 import com.example.alfatesttask.ui.theme.onestFontFamily
@@ -40,13 +40,12 @@ import com.example.explooapp.ru.ui.navigation.NavigationManager
 fun LogInMailScreen(
     modifier: Modifier = Modifier,
     navManager: NavigationManager = LocalNavigationManager.current,
+    viewModel: LogInMailViewModel = viewModel(),
 ) {
-    var text by rememberSaveable { mutableStateOf("") }
-
     LogInMailContent(
         modifier = modifier,
-        text = text,
-        onTextChange = { text = it },
+        text = viewModel.email,
+        onTextChange = { viewModel.onTextChange(it)},
         onContinueClick = { navManager.navigateToLogInCode() }
     )
 }

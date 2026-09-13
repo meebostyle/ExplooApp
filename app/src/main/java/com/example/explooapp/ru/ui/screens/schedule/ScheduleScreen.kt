@@ -61,7 +61,10 @@ fun ScheduleScreen() {
                 SquareButton(label = R.drawable.ic_plus)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            ScheduleSingleDayWidget()
+            ScheduleSingleDayWidget(
+                lessons = TODO(),
+                modifier = Modifier
+            )
         }
     }
 }

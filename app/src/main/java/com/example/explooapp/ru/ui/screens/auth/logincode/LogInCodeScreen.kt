@@ -54,7 +54,6 @@ import com.example.alfatesttask.ui.theme.Primary
 import com.example.alfatesttask.ui.theme.PrimaryShadow
 import com.example.alfatesttask.ui.theme.onestFontFamily
 import com.example.explooapp.R
-import com.example.explooapp.ru.ui.LocalNavigationManager
 import com.example.explooapp.ru.ui.UIKit.items.buttons.RectangleNextButton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -64,7 +63,7 @@ import kotlinx.coroutines.launch
 // ---------- STATEFUL ----------
 @Composable
 fun LogInCodeScreen(
-    email: String,
+    email: String = "",
     modifier: Modifier = Modifier,
     viewModel: LogInCodeViewModel = viewModel(),
 ) {

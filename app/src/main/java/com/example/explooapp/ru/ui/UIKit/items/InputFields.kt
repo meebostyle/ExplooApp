@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -101,7 +100,8 @@ fun TextInputField(
                     maxLines = maxLines,
                     textStyle = textStyle,
                     modifier = modifier.padding(
-                        vertical = 12.dp
+                        vertical = 12.dp,
+                        horizontal = 4.dp
                     )
                 )
             }
